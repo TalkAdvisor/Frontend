@@ -1,6 +1,4 @@
-$(document).on('ready', function(){
-	
-	//setting un the good value for each star in the comment
+//setting un the good value for each star in the comment
 	for(i=0;i<commentReviews['data'].length;i++){
 		$("#overallStar"+i).val(ratings[i][0].score)
 	}
@@ -14,6 +12,8 @@ $(document).on('ready', function(){
 	  	displayOnly:true,
 	    size:'xxs'
 	  });
+	
+	$( document ).ready(function() {
 	
 	//Script to fill the content of the modal of "See grades" of the reviews 
 	$('#modalRating').on('show.bs.modal', function (event) {

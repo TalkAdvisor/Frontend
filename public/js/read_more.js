@@ -1,5 +1,3 @@
-$(document).on('ready', function(){
-
 $(function () {
     $(".review-comment").dotdotdot({
         after: 'a.more',
@@ -30,6 +28,5 @@ $('#modalReview').on('show.bs.modal', function (event) {
 	  modal.find('.modal-title').text('Review of ' + commentReviews['data'][id].user_id)
 	  modal.find('.modal-body').text(commentReviews['data'][id].comment)
 	  modal.find('.review-date').text(commentReviews['data'][id].created_at)
-})
-
-});		
+});
+	

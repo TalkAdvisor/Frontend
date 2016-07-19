@@ -1,5 +1,4 @@
-$(document).on('ready', function(){
-
+$( document ).ready(function() {
 
 //quote container
 	var j=0;  //the jth quote is displayed, this is important to know if there is still a quote to show when we go back

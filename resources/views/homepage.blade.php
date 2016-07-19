@@ -70,7 +70,6 @@ Html::style('css/homepage.css') }} @stop @section('homePagePhoto')
 @stop @section('script')
 
 <script>
-
 var commentReviews = {!!json_encode($commentReviews)!!};
 var ratings= {!! json_encode($ratings) !!};
 var quotes = {!!json_encode($quotes)!!};
@@ -94,14 +93,11 @@ $(window).scroll(function() {
 if(screen.width<1100){
 	$("#speaker5").hide();
 	$("#speaker6").hide();
-	
 }
-
+	
 </script>
 
-{{Html::script('js/read_more.js')}}
-{{Html::script('js/stars.js')}}
-{{ Html::script('js/autocompletion.js') }} 
-
+{{ Html::script('js/showReviews.js')}}
+{{ Html::script('js/autocompletion.js')}} 
 
 @stop

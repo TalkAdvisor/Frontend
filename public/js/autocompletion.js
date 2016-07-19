@@ -1,4 +1,5 @@
-
+$( document ).ready(function() {
+	
 speakers = new Bloodhound({
     datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.speaker_name); },
     queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -20,3 +21,5 @@ speakers = new Bloodhound({
   $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
       $(this).parent().parent().children('input[type= "hidden"]').val(suggestion.id);
   });
+  
+ });

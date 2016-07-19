@@ -23,7 +23,7 @@ TalkAdvisor @stop @section('content')
 						value="{{$speaker->average_1}}">
 				
 					<!-- Button to pop the modal. See at the end for the modal -->
-					<button type="button" class="btn btn-default btn-margin"
+					<button type="button" class="btn btn-default btn-margin disabled"
 						data-toggle="modal" data-target="#myModal">Rate this speaker</button>
 						
 				</div>
@@ -150,11 +150,6 @@ $("#show-grades").click(function(){
 	$("#text-fields").hide();
 });
 
-// TODO : this is supposed to allow to change the grades. But it closes the modal for some reason
-/* $("#show-grades").click(function(){
-	$("#stars").show();
-	$("#text-fields").hide();
-}); */
 
 // TODO :  Infinite scroll plugin. It works, we just have to find a way to load the newReviews 
 // and ratings to show the read more and the grades.
@@ -171,75 +166,17 @@ $("#show-grades").click(function(){
 }); */
 
 	
-$(document).on('ready', function(){
+$( document ).ready(function() {
 
 	// initialize the tooltips 
 	$('[data-toggle="tooltip"]').tooltip()
-
-	//setting up the good value for the stars on the main page
-    $("#option1").val(speaker.average_1);
-    $("#option2").val(speaker.average_2);
-    $("#option3").val(speaker.average_3);
-    $("#option4").val(speaker.average_4);
-    $("#option5").val(speaker.average_5);
-
-  //initialise the stars of the main page
-    $('.kv-ltr-theme-svg-star-display').rating({
-    	min: 0, max: 5, step: 0.5, stars: 5,
-        theme: 'krajee-svg',
-        filledStar: '<span class="krajee-icon krajee-icon-star"></span>',
-        emptyStar: '<span class="krajee-icon krajee-icon-star"></span>',
-        displayOnly:true,
-        size:'xs'
-    });
-    	
-	//initialise the stars used to grade
-    $('.kv-ltr-theme-svg-star').rating({
-    	min: 0, max: 5, step: 0.5, stars: 5,
-        theme: 'krajee-svg',
-        filledStar: '<span class="krajee-icon krajee-icon-star"></span>',
-        emptyStar: '<span class="krajee-icon krajee-icon-star"></span>',
-        showClear: false,
-        showCaption: false,
-        size:'xs'
-    });
-
-	//initialise the disabled stars (when there is no reviews yet)
-    $('.kv-ltr-theme-svg-star-disabled').rating({
-	    theme: 'krajee-svg',
-	    filledStar: '<span class="krajee-icon krajee-icon-star"></span>',
-	    emptyStar: '<span class="krajee-icon krajee-icon-star disabled-stars"></span>',
-	  	displayOnly:true,
-	    size:'xs'
-	  });
-    
-	// Updates the value of the fields "grades" of the form when stars are clicked
-	$("#input1").rating().on("rating.change", function(event, value, caption) {  
-		$("#1").val(value); 
-	}); 
-
-    $("#input2").rating().on("rating.change", function(event, value, caption) {   
- 	   $("#2").val(value); 
-     }); 
-
-    $("#input3").rating().on("rating.change", function(event, value, caption) { 
-       $("#3").val(value); 
-     }); 
-
-    $("#input4").rating().on("rating.change", function(event, value, caption) {  
- 	   $("#4").val(value); 
-     }); 
-
-    $("#input5").rating().on("rating.change", function(event, value, caption) {  
- 	   $("#5").val(value); 
-     });
 
 });
 
 </script>
 
-{{Html::script('js/read_more.js')}}
+{{Html::script('js/showReviews.js')}}
 {{Html::script('js/quote-carousel.js')}}
-{{Html::script('js/stars.js')}}
+{{Html::script('js/stars-speaker.js')}}
 
 @stop

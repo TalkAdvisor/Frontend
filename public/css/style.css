@@ -185,7 +185,6 @@ body{
 
 .user-name{
 	margin-top: 10px;
-	
 }
 
 .quote-container{
@@ -216,6 +215,7 @@ body{
 .img-circle {
     border-radius: 50%;
 }
+
 .img-circle {
     border-radius: 0;
 }
