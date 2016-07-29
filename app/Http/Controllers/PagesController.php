@@ -6,97 +6,98 @@ use Request;
 use App\Review;
 use App\Ratings;
 use App\Speaker;
-use App\review_options;
-
-
 use App\Http\Requests;
+use App\Gestion\ReviewGestionInterface;
+use App\Gestion\ReviewGestion;
+use App\Http\Requests\ReviewRequest;
+use App\Repositories\ReviewRepository;
+use App\ratingoptions;
+use Illuminate\Support\Facades\Session;
+use App\User;
+
 
 class PagesController extends Controller
 {
 
 	public function home(){
-		$controller1 = new speakerController;
-		$controller2 = new reviewController;
-		
-		$data=[];
-		$data['speakers']=$controller1->index();
-		$data['bestspeakers']=$controller1->getBest(5);
-		$data['reviews']= $controller2->getLast(5);
+		$homeController = new HomeController();
+		$data = $homeController->index();
 		return view('homepage',$data);
 	}
 	
-	 public function getPage($type){
-		if ($type == 'review'){
+	 public function getPage($type1){
+	 	if($type1=='logout'){
+	 		Session::forget('user');
+	 		Session::flash('flash_message','You have been disconnected');
+	 		return redirect('/');
+	 	}
+		/*if ($type == 'review'){
 			$controller = new ReviewController;
 			$reviews = $controller->index();
-			return  view('reviews',$reviews);
+			$ratings=[];
+			$i=0;
+			foreach ($reviews as $review){
+				$ratings["$i"]=$controller3->getRatings($review->id);
+				$i++;
+			}
+			$data['reviews']=$reviews;
+			$data['ratings']=$ratings;
+			$data['page']= $type;
+			return  view('reviews',$data);
 		}
 		if ($type=='speaker'){
 			$controller = new SpeakerController;
 			$speakers = $controller->getBest(10);
-			return 'Encore à faire !';
+			return 'Encore Ã  faire !';
 		}
 		else {
 			return 'Sorry, this page doesn\'t exist';
-		}
+		}*/
 	} 
 	
-	public function getPage2($type,$id){
+	public function getPage2($type1,$type2){
 		
-		if ($type=='speaker'){
-			$controller1 = new SpeakerController;
-			$controller2 = new ReviewController;
-			$controller3= new RatingsController;
-			$data=[];
-			$data['speaker'] = $controller1->getSpeaker($id);
-			$data['reviews'] = $controller2->getReview($id);
-			$data['options'] = review_options::all();
+		if ($type1=='speaker'){
+			$speakerController = new SpeakerController;
+			$data = $speakerController->show($type2);
 			return view('speaker',$data);
 		}
-		else {
-			return 'Sorry, this page doesn\'t exist';
+		else if ($type1=='user') {
+			if($type2=="connect"){
+				return view('connect');
+			}
+			else{
+			$userController = new UserController();
+			$data = $userController->show($type2);
+			return view('user',$data);
+			}
 		}
-	}
-	
-	public function postReview(){
+		else if($type1=='login'){
+				Session::put('user',$type2);
+				Session::flash('flash_message','You are now logged in.');
+				return redirect('/');
+			}
+		else if($type1=='register'){
+				Session::put('user',$type2);
+				Session::flash('flash_message','You registered successfully.');
+				return redirect('/');
+			}
 		
-		$input=Request::all();
-		$review = new Review;
-		$review->comment=$input['body'];
-		$review->quote=$input['quote'];
-		$review->talk_id=1; 							// TODO : To modify when we link talks to reviews
-		$review->speaker_id=$input['id'];
-		$review->user_id=2; 							//TODO : get the real id
-		$review->save();
-	
-		// We need to know the id of the review we created :
-		$latest = Review::orderBy('id','desc')->first();
-		$id = $latest->id;
-		 
-		$speaker= Speaker::find($input['id']);
-		$number = $speaker->number_reviews;
-		for ($i=1;$i<=5;$i++){
-			$ratings = new Ratings;
-			$ratings->review_id=$id;
-			$ratings->rating_option_id=$i;
-			$ratings->score=$input[$i];
-			$ratings->save();
-		}
-		 
-		// updating the average
-		$speaker->average_1 = ($number*$speaker->average_1 + $input[1])/($number+1);
-		$speaker->average_2 = ($number*$speaker->average_2 + $input[2])/($number+1);
-		$speaker->average_3 = ($number*$speaker->average_3 + $input[3])/($number+1);
-		$speaker->average_4 = ($number*$speaker->average_4 + $input[4])/($number+1);
-		$speaker->average_5 = ($number*$speaker->average_5 + $input[5])/($number+1);
-		 
-		// updating the number of reviews
-		$speaker->number_reviews++;
-		$speaker->save();
-	
-		$pagesController = new PagesController;
-		return $pagesController->getPage2('speaker',$input['id']);
+		return 'Sorry, this page doesn\'t exist';
 	}
+	
+	public function getPage3($type1,$type2,$type3){
+		if($type1=='user'){
+			if($type3=='edit'){
+				$user=User::find($type2);
+				$data=[];
+				$data['user']=$user;
+				$data['page']='edit';
+				return view('edit',$data);
+			}
+		}
+	}
+
 }
 
 ?>
