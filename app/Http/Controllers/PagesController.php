@@ -12,6 +12,9 @@ use App\Gestion\ReviewGestion;
 use App\Http\Requests\ReviewRequest;
 use App\Repositories\ReviewRepository;
 use App\ratingoptions;
+use Illuminate\Support\Facades\Session;
+use App\User;
+use Illuminate\Http\Response;
 
 
 class PagesController extends Controller
@@ -19,10 +22,16 @@ class PagesController extends Controller
 
 	public function home(){
 		$homeController = new HomeController();
-		return $homeController->index();
+		$data = $homeController->index();
+		return view('homepage',$data);
 	}
 	
-	 public function getPage($type){
+	 public function getPage($type1){
+	 	if($type1=='logout'){
+	 		Session::forget('user');
+	 		Session::flash('flash_message','You have been disconnected');
+	 		return redirect('/');
+	 	}
 		/*if ($type == 'review'){
 			$controller = new ReviewController;
 			$reviews = $controller->index();
@@ -47,19 +56,61 @@ class PagesController extends Controller
 		}*/
 	} 
 	
-	public function getPage2($type,$id){
+	public function getPage2($type1,$type2){
 		
-		if ($type=='speaker'){
+		if ($type1=='speaker'){
 			$speakerController = new SpeakerController;
-			$data = $speakerController->show($id);
+			$data = $speakerController->show($type2);
+
 			return view('speaker',$data);
 		}
-		
-		else {
-			return 'Sorry, this page doesn\'t exist';
+		else if ($type1=='user') {
+			if($type2=="connect"){
+				return view('connect');
+			}
+			else{
+			$userController = new UserController();
+			$data = $userController->show($type2);
+			return view('user',$data);
+			}
 		}
+		else if($type1=='login'){
+				Session::put('user',$type2);
+				Session::flash('flash_message','You are now logged in.');
+				return redirect('/');
+			}
+		else if($type1=='register'){
+				Session::put('user',$type2);
+				Session::flash('flash_message','You registered successfully.');
+				return redirect('/');
+			}
+		else if($type1=='ratings' && Request::ajax()){
+				$ratingsController=new RatingsController();
+				return response()->json($ratingsController->show($type2));
+			}
+		
+		return 'Sorry, this page doesn\'t exist';
 	}
-
+	
+	public function getPage3($type1,$type2,$type3){
+		if($type1=='user'){
+			if($type3=='edit'){
+				$user=User::find($type2);
+				$data=[];
+				$data['user']=$user;
+				$data['page']='edit';
+				return view('edit',$data);
+			}
+		}
+		if($type1=='speaker'){
+			if($type3=='reviews'){
+				
+				$reviews=new ReviewController();
+				return $reviews->getCommentsOn($type2);
+			}
+		}
+		return 'Sorry, this page doesn\'t exist';
+	}
 }
 
 ?>

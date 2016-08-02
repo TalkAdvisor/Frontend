@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -37,7 +38,9 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => ['logout','getLogout']]);
+        $this->middleware('guest',['except'=>'logout']);
+        $this->middleware('ajax', ['only' => 'register']);
+        
     }
 
     /**
@@ -46,27 +49,60 @@ class AuthController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
+    protected function validator(array $data){
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
     }
-
+    
     /**
-     * Create a new user instance after a valid registration.
+     * Validate the user login request.
      *
-     * @param  array  $data
-     * @return User
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
      */
-    protected function create(array $data)
+    protected function validateLogin(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+    	  return Validator::make($data, [
+            'email' => 'required|email|max:255',
+            'password' => 'required|min:6',
         ]);
+    }
+    
+    
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function register(Request $request){
+    	$validator = $this->validator($request->all());
+    	if ($validator->fails()) {
+    		$this->throwValidationException(
+    				$request, $validator
+    		);
+    	}
+    	return response()->json($request->all());
+    }
+    
+    /**
+     * Handle a login request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function login(Request $request){
+    	$validator = $this->validateLogin($request->all());
+    	if ($validator->fails()) {
+    		$this->throwValidationException(
+    				$request, $validator
+    		);
+    	}
+    	return response()->json($request->all());
     }
 }

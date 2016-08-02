@@ -1,4 +1,9 @@
-//setting up the good value for the stars on the main page
+$(document).ready( function(){
+
+	// initialize the tooltips 
+	$('[data-toggle="tooltip"]').tooltip()
+
+	//setting up the good value for the stars on the main page
     $("#option1").val(speaker.average_1);
     $("#option2").val(speaker.average_2);
     $("#option3").val(speaker.average_3);
@@ -12,7 +17,7 @@
         filledStar: '<span class="krajee-icon krajee-icon-star"></span>',
         emptyStar: '<span class="krajee-icon krajee-icon-star"></span>',
         displayOnly:true,
-        size:'xs'
+        size:'xl'
     });
     	
 	//initialise the stars used to grade
@@ -23,7 +28,7 @@
         emptyStar: '<span class="krajee-icon krajee-icon-star"></span>',
         showClear: false,
         showCaption: false,
-        size:'xs'
+        size:'xl'
     });
 
 	//initialise the disabled stars (when there is no reviews yet)
@@ -32,7 +37,7 @@
 	    filledStar: '<span class="krajee-icon krajee-icon-star"></span>',
 	    emptyStar: '<span class="krajee-icon krajee-icon-star disabled-stars"></span>',
 	  	displayOnly:true,
-	    size:'xs'
+	    size:'xl'
 	  });
     
 	// Updates the value of the fields "grades" of the form when stars are clicked
@@ -55,3 +60,5 @@
     $("#input5").rating().on("rating.change", function(event, value, caption) {  
  	   $("#5").val(value); 
      });
+
+});
