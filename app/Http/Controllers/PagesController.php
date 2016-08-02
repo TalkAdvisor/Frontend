@@ -14,6 +14,7 @@ use App\Repositories\ReviewRepository;
 use App\ratingoptions;
 use Illuminate\Support\Facades\Session;
 use App\User;
+use Illuminate\Http\Response;
 
 
 class PagesController extends Controller
@@ -60,6 +61,7 @@ class PagesController extends Controller
 		if ($type1=='speaker'){
 			$speakerController = new SpeakerController;
 			$data = $speakerController->show($type2);
+
 			return view('speaker',$data);
 		}
 		else if ($type1=='user') {
@@ -82,6 +84,10 @@ class PagesController extends Controller
 				Session::flash('flash_message','You registered successfully.');
 				return redirect('/');
 			}
+		else if($type1=='ratings' && Request::ajax()){
+				$ratingsController=new RatingsController();
+				return response()->json($ratingsController->show($type2));
+			}
 		
 		return 'Sorry, this page doesn\'t exist';
 	}
@@ -96,8 +102,15 @@ class PagesController extends Controller
 				return view('edit',$data);
 			}
 		}
+		if($type1=='speaker'){
+			if($type3=='reviews'){
+				
+				$reviews=new ReviewController();
+				return $reviews->getCommentsOn($type2);
+			}
+		}
+		return 'Sorry, this page doesn\'t exist';
 	}
-
 }
 
 ?>

@@ -8,10 +8,22 @@ use App\Http\Requests;
 use App\Ratings;
 use App\Review;
 use App\ratingoptions;
+use App\Speaker;
 
 class RatingsController extends Controller
 {
    
+   /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id) //id of the review
+    {
+		return Review::findOrFail($id)->ratings()->get();
+    }
+
     /**
      * Store a newly created resource in storage.
      *

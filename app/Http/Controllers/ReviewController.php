@@ -116,7 +116,6 @@ class ReviewController extends Controller {
 			$ratings["$i"] = $ratingController->getRatings($review->id);
 			$i++;
 		}
-		
 		return ['reviews'=>$reviews,'ratings'=>$ratings,'users'=>$users];
 	}
 	
