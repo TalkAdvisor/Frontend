@@ -65,15 +65,10 @@ class PagesController extends Controller
 			return view('speaker',$data);
 		}
 		else if ($type1=='user') {
-			if($type2=="connect"){
-				return view('connect');
-			}
-			else{
 			$userController = new UserController();
 			$data = $userController->show($type2);
 			return view('user',$data);
 			}
-		}
 		else if($type1=='login'){
 				Session::put('user',$type2);
 				Session::flash('flash_message','You are now logged in.');

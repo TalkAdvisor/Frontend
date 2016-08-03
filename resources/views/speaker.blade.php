@@ -34,7 +34,7 @@ TalkAdvisor @stop @section('content')
 
 			<div class="col-md-2 col-md-offset-1 col-sm-4 col-xs-4 img-container">
 				<img class="img-circle img-responsive"
-					src="{{url('img').'/'.$speaker->speaker_photo}}">
+					src="https://s3-ap-northeast-1.amazonaws.com/talk-advisor/speakers/{{$speaker->speaker_photo}}">
 			</div>
 
 			<div class="col-md-4 col-md-offset-1">
@@ -42,7 +42,7 @@ TalkAdvisor @stop @section('content')
 				<div class="company center"><h3>{{$speaker->speaker_company}} {{$speaker->speaker_title}}</h3></div>
 				@endif
 				<div class="presentation">
-					<span class="more">{{$speaker->speaker_description}}</span>
+					<span class="more" >{{$speaker->speaker_description}}</span>
 				</div>
 				@unless ($speaker->description_source===null)					
 				<p class="source">来源 : {{$speaker->description_source}}</p>
@@ -83,20 +83,21 @@ TalkAdvisor @stop @section('content')
 
 			<div class="col-md-6 col-sm-12 bloc ratings-bloc">
 			<?php   $i=1; ?>
-			@foreach ($options as $option)
-			<div class="col-md-2 col-sm-2 center-text">
-				<h5>{{$option->name}}</h5>
-			</div>
-			<div class="col-md-4 col-sm-4 center-text">
-				<span class="fa fa-info-circle fa-lg info" data-container="body" data-toggle="tooltip" data-placement="right" title="{{$option->description}}"></span>
-			</div>
-				<div class="col-md-6 col-sm-6 center-text">
-				
-					<input id="option{{$i}}"
-						class="{{$speaker->number_reviews===null ? 'kv-ltr-theme-svg-star-disabled' : 'kv-ltr-theme-svg-star-display'}} rating-loading " value="2">
+				@foreach ($options as $option)
+				<div class="col-md-2 col-sm-2 stars-speaker">
+					<h5>{{$option->name}}</h5>
 				</div>
-			<?php  $i++; ?>			
-			@endforeach
+				<div class="col-md-4 col-sm-4 stars-speaker">
+					<span class="fa fa-info-circle fa-lg info" data-container="body" data-toggle="tooltip" data-placement="right" title="{{$option->description}}"></span>
+				</div>
+					<div class="col-md-6 col-sm-6 stars-speaker">
+					
+						<input id="option{{$i}}"
+							class="{{$speaker->number_reviews===null ? 'kv-ltr-theme-svg-star-disabled' : 'kv-ltr-theme-svg-star-display'}} rating-loading " value="2">
+					</div>
+				<?php  $i++; ?>			
+				@endforeach
+				<div>on {{$speaker->number_reviews}} ratings</div>
 			</div>
 		</div>
 		
@@ -150,76 +151,20 @@ var speaker = {!!json_encode($speaker)!!};
 var users = {!!json_encode($users)!!};
 
 $("#btn-grades").click(function(){
-	$("#stars").hide();
-	$("#text-fields").show();
+	console.log('Click');
+	$("#stars").addClass('hidden');
+	$("#text-fields").removeClass('hidden');
 });
 
 $("#show-grades").click(function(){
-	$("#stars").show();
-	$("#text-fields").hide();
+	$("#stars").removeClass('hidden');
+	$("#text-fields").addClass('hidden');
 });
-var page=1;
- $('#reviews').infinitescroll({
-	 navSelector  : "ul.pagination",            
-	                // selector for the paged navigation (it will be hidden)
-	 nextSelector : "ul.pagination li a",    
-	                // selector for the NEXT link (to page 2)
-	 itemSelector : "#reviews div.review-container"  ,        
-	                // selector for all items you'll retrieve
- 	donetext     : "I think we've hit the end, Jim" ,
- 	loadingText  : "Loading new reviews...",      
- 	animate      : true
-},function(arrayOfNewElems){
-	//we execute read more on the new reviews
-	readmore(120);
-	
-	//we set the good number on the buttons that call the modals.
-	var i=0;
-	$(this).find('.btn-grades').each(function(){
-			$(this).attr('data-rating',i++);
-		});
-	//we do the same for the stars that needs to have the good id
-	var j=0;
-	$(this).find('.kv-ltr-theme-svg-star-overall').each(function(){
-		$(this).attr('id',"overallStar"+j++);
-	});
-	getComments(speaker.id,++page);;
-}); 
 
-// Get all the data used to display the new reviews and initialise the stars.
-function getComments(id,page) {
-     $.ajax({
-         url : id+'/reviews?page='+page,
-         dataType: 'json',
-     }).done(function (data) {
-         	reviews['data'] = reviews['data'].concat(data.reviews['data']);
-         	ratings = ratings.concat(data.ratings);	
-         	users = users.concat(data.users);	
-
-         	//setting un the good value for each star in the comment
-        	for(i=0;i<ratings.length;i++){
-        		$("#overallStar"+i).val(ratings[i][0].score)
-        		//console.log('Note'+i);
-        	//	console.log(ratings[i][0].score);	
-        	}
-        	//initialise the stars showing the overall grade in the beggining of the comment
-        	$('.kv-ltr-theme-svg-star-overall').rating({
-        	  	min: 0, max: 5, step: 0.5, stars: 5,
-        	    theme: 'krajee-svg',
-        	    filledStar: '<span class="krajee-icon krajee-icon-star"></span>',
-        	    emptyStar: '<span class="krajee-icon krajee-icon-star"></span>',
-        	  	displayOnly:true,
-        	    size:'xs'
-        	  });          		
-     }).fail(function () {
-         alert('Ratings could not be loaded.');
-     });
- }
- 
-	
 </script>
 
 {{Html::script('js/showReviews.js')}}
+{{Html::script('js/infinite-reviews.blade.js')}}
 {{Html::script('js/quote-carousel.js')}}
 {{Html::script('js/stars-speaker.js')}}
 

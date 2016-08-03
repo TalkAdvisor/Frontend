@@ -42,7 +42,7 @@ class FormController extends Controller
 			}
 			else {
 				$controller=new SpeakerController;
-				return $controller->postVideo($request,$id);
+				return $controller->postVideo($request,$type2);
 			}
 		}
 		if($type1=='user'){
@@ -56,7 +56,5 @@ class FormController extends Controller
 				return redirect("/$type1/$type2");
 			}
 		}
-			
-
 	}
 }

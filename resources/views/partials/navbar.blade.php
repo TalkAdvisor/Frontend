@@ -20,7 +20,6 @@
 				<li><a href="{{url('user').'/'.Session::get('user')}}">Profile</a></li>
 				<li><a href="{{ url('logout') }}" id="logout">Logout</a></li>
 				@else
-				<li><a href="{{url('user/connect')}}">Connection factice</a></li>
 				<li><a data-toggle="modal" data-target="#login">Login</a></li>
 				<li><a data-toggle="modal" data-target="#register">Register</a></li>
 				@endif
@@ -55,7 +54,6 @@
 				<li><a href="{{url('user').'/'.Session::get('user')}}">Profile</a></li>
 				<li><a href={{ url('logout') }} id="logout">Logout</a></li>
 				@else
-				<li><a href={{url('user/connect')}}>Connection factice</a></li>
 				<li><a data-toggle="modal" data-target="#login">Login</a></li>
 				<li><a data-toggle="modal" data-target="#register">Register</a></li>
 				@endif

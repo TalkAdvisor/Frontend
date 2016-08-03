@@ -140,16 +140,18 @@ class UserController extends Controller
     	for($i=0;$i<=5;$i++){										//initialisation of the averages
     		$stats["average_$i"]=0;
     	}
-    	foreach($reviews as $review){								//we sum over all the ratings							
-    		$ratings=RatingsController::getRatings($review->id);
-    		foreach($ratings as $rating){
-    			$i = $rating->ratingoption_id;
-    			$stats["average_$i"]+=$rating->score;
-    		}
+    	if($stats['number_ratings']!=0){
+	    	foreach($reviews as $review){								//we sum over all the ratings							
+	    		$ratings=RatingsController::getRatings($review->id);
+	    		foreach($ratings as $rating){
+	    			$i = $rating->ratingoption_id;
+	    			$stats["average_$i"]+=$rating->score;
+	    		}
+	    	}
+	    	for($i=0;$i<=5;$i++){										//we divide by the number of ratings
+	    		$stats["average_$i"]=$stats["average_$i"]/$stats['number_ratings'];
+	    	} 
     	}
-    	for($i=0;$i<=5;$i++){										//we divide by the number of ratings
-    		$stats["average_$i"]=$stats["average_$i"]/$stats['number_ratings'];
-    	} 
     	
     	return $stats;
     }

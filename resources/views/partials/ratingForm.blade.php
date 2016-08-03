@@ -8,7 +8,7 @@
 			</div>
 			<div class="modal-body">
 				<div id="stars">
-					<div class="row" id="stars">
+					<div class="row">
 					{!! Form::open(); !!}
 						@foreach ($options as $option)
 							<div class="col-lg-6 star-container {{$option->id===5 ? 'col-lg-offset-3' : ''}}">
@@ -25,7 +25,7 @@
 					</div>
 				</div>
 	    <!-- Contains the second part of the notation. It is showed when the button "Save grades" in clicked -->
-				<div class="row" id="text-fields" style="display:none">
+				<div class="row hidden" id="text-fields">
 					<div class="col-lg-10 col-lg-offset-1 form-group">
 						<span>Comment and quote are optional, if you don't wish to leave a comment and/or a quote, juste click on submit.</span></br>
 					{!! Form::label('comment', 'Your comment :') !!} 

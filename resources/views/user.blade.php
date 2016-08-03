@@ -4,6 +4,15 @@
 
 @section('content')
 
+@if ($stats['number_ratings']===0)
+			<div class="alert alert-perso alert-info alert-success alert-important">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+				{{$connectedUser ? 'You have not posted a review yet, time to get to work !' : 'This user has not posted a review yet' }}
+			</div>
+		@endif
+
 <div class="container-fluid">
 	<div class="margin">
 		<div class="row bloc user-bloc">
@@ -40,7 +49,7 @@
 			<div class="col-md-4 col-sm-6 center">
 				<div class="col-md-8 col-md-offset-2">
 					<img class="img-circle img-responsive"
-						src="{{url('img').'/'.$user->profile_picture}}">
+						src="https://lh6.googleusercontent.com/-St077kPaI3A/AAAAAAAAAAI/AAAAAAAAAE4/nshp34I8yjM/photo.jpg">
 					<h1>{{$user->name}}</h1>
 					@if($connectedUser)
 					<a class="btn btn-perso" href="{{$user->id}}/edit">Edit my profile</a>

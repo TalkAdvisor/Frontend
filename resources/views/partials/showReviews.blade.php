@@ -4,21 +4,21 @@
 	@foreach ($reviews as $review)
 
 	<div class="row review-container">
-		<div class="col-sm-2 hidden-xs review-picture">
+		<div class="col-sm-3 hidden-xs review-picture">
 			<!-- photo of the user -->
 			@if($page==='home')
 			<div class="row flex">
 				<div class="col-md-6 col-xs-6 no-padding">
 					<a href={{url('user').'/'.$users[$i]->id}}>
 					<img class="img-responsive img-circle"
-						src={{url('img').'/'.$users[$i]->profile_picture}}
+						src=https://lh6.googleusercontent.com/-St077kPaI3A/AAAAAAAAAAI/AAAAAAAAAE4/nshp34I8yjM/photo.jpg
 						alt="user">
 					</a>
 				</div>
 				<div class="col-md-6 col-xs-6 no-padding">
 					<a href={{url('speaker').'/'.$speakers["$i"]->id}}>
-					<img class="img-responsive img-circle"
-						src={{url('img').'/'.$speakers[$i]->speaker_photo}}
+					<img class="img-responsive img-circle" style="margin-left:-10px;"
+					src="https://s3-ap-northeast-1.amazonaws.com/talk-advisor/speakers/{{$speakers[$i]->speaker_photo}}"
 						alt="{{$speakers[$i]->speaker_name}}">
 					</a>
 					<img src={{url('img/sticker_speaker.png')}} class="sticker-speaker">
@@ -27,19 +27,19 @@
 			@else @if($page==='speaker')
 			<a href={{url('user').'/'.$users[$i]->id}}>
 			<img class="img-responsive img-circle" style="width:80%"
-				src={{url('img').'/'.$users[$i]->profile_picture}}
+				src=https://lh6.googleusercontent.com/-St077kPaI3A/AAAAAAAAAAI/AAAAAAAAAE4/nshp34I8yjM/photo.jpg
 				alt="user">
 			</a>
 			@else
 			<a href={{url('speaker').'/'.$speakers["$i"]->id}}>
 			<img class="img-responsive img-circle" style="width:80%"
-				src={{url('img').'/'.$speakers[$i]->speaker_photo}}
+			src="https://s3-ap-northeast-1.amazonaws.com/talk-advisor/speakers/{{$speakers[$i]->speaker_photo}}"
 				alt="{{$speakers[$i]->speaker_name}}">
 			</a>
 			@endif
 			@endif
 		</div>
-		<div class="col-sm-7 review-text">
+		<div class="col-sm-6 review-text">
 			<span class="review-comment">
 			@if ($page==='home')
 			<h4 class="media-heading">Comment of {{$users["$i"]->name}} on {{$speakers["$i"]->speaker_name}}</h4>
@@ -51,29 +51,48 @@
 			@endif
 			
 				<input id=<?php echo "overallStar$i"?> 
-						class="kv-ltr-theme-svg-star-overall rating-loading" value="2"> 
-				<span class="more">{{$review->comment}}</span>
+						class="kv-ltr-theme-svg-star-xs rating-loading" value="2"> 
+				<span class="more" id=<?php echo "$i"?> >{{$review->comment}}</span>
 			</span> 
 			<span class="review-date">
 				{{$review->created_at->diffForHumans()}} 
 			</span>
 		</div>
-		<div class="col-sm-3 review-button">
-			<button class="btn btn-default btn-grades" data-toggle="modal"
+		<div class="col-sm-3 stars-review">
+			<?php   $j=0; ?>
+			<button class="btn btn-default btn-grades hidden" data-toggle="modal"
+				data-target="#modalRating" data-rating=<?php echo $i ?>>See grades</button>
+				<div class="btn-grades-stars">
+					@foreach ($options as $option)
+					<div class="row">
+						<div class="col-md-6 col-sm-6 stars-small">
+							<h5 data-container="body" data-toggle="tooltip" data-placement="left" title="{{$option->description}}">{{$option->name}}</h5>
+						</div>
+						<div class="col-md-6 col-sm-6 stars-small">
+							<input id="grade{{$i}}{{$j}}"
+							class="kv-ltr-theme-svg-star-sm rating-loading " value="2">
+						</div>
+					</div>
+					<?php  $j++; ?>	
+					@endforeach
+				</div>
+		</div>
+		<!--  <div class="col-sm-3 review-button">
+			<button class="btn btn-default btn-grades" id="btn-grades" data-toggle="modal"
 				data-target="#modalRating" data-rating=<?php echo $i ?>>See grades</button>
 			@if($page=='user' && $connectedUser)
 			<button class="btn btn-perso btn-edit" data-toggle="modal"
 				data-target="#modalEdit" data-rating=<?php echo $i ?>>Edit review</button>
 			@endif
-		</div>
+		</div> -->
 	</div>					
 	<?php $i++; ?>
 	@endforeach
 </div>
 
-<!-- If we are not in the homepage, we use pagination -->
+<!-- If we are not in the homepage, we use infinite scroll so pagination -->
 @if ($page != 'home')
-<div style="text-align:center"> {!! $reviews->render() !!} </div>
+	<div class="hidden"> {!! $reviews->render() !!} </div>
 @endif
 
 <!-- Modal for the ratings of each comment -->
@@ -124,8 +143,8 @@
 				<h4 class="modal-title" id="myModalLabel2">Edit</h4>
 			</div>
 			<div class="modal-body">
-				<div id="stars">
-					<div class="row" id="stars">
+				<div id="stars-edit">
+					<div class="row">
 					{!! Form::open(); !!}
 						@foreach ($options as $option)
 							<div class="col-lg-6 star-container {{$option->id===5 ? 'col-lg-offset-3' : ''}}">
@@ -140,7 +159,7 @@
 						@endforeach
 					</div>
 				</div>
-				<div class="row" id="text-fields">
+				<div class="row" id="text-fields-edit">
 					<div class="col-lg-10 col-lg-offset-1 form-group">
 					{!! Form::number('review_id',null, array('id'=>'review_id','class'=>'hidden'))!!}
 					{!! Form::label('comment', 'Your comment :') !!} 

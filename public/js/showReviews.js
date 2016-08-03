@@ -3,10 +3,11 @@
  * Therefore it need commentReviews and ratings to be passed to the view.
  */
 
-function readmore(size){
+function readmore(numberOfLines){
 //	Script of the read more
 	// Configure/customize these variables.
-    var showChar = size;  // How many characters are shown by default
+	
+    var showChar = 115;  // How many characters are shown by default
     var ellipsestext = "...";
     var moretext = "Read more";
     var lesstext = "Read less";
@@ -41,23 +42,45 @@ function readmore(size){
     });
 }
 
-$(document).ready(function(){
+$(document).ready(function(){	
 	
-	readmore(120);
+	readmore(5);
 	
+	$( ".stars-review" ).hover(function() {
+		$(this).find('.btn-grades-stars').removeClass('hidden');
+		$(this).find('.btn-grades').addClass('hidden');
+	}, function() {
+		$(this).find('.btn-grades-stars').addClass('hidden');
+		$(this).find('.btn-grades').removeClass('hidden');
+	});
+
 //setting un the good value for each star in the comment
 	for(i=0;i<reviews['data'].length;i++){
 		$("#overallStar"+i).val(ratings[i][0].score)
+		for(j=0;j<6;j++){
+			if (typeof ratings[i][j]!= 'undefined'){
+				$("#grade"+i+j).val(ratings[i][j].score);
+			}	
+		}
 	}
 	
 //initialise the stars showing the overall grade in the beggining of the comment
-	$('.kv-ltr-theme-svg-star-overall').rating({
+	$('.kv-ltr-theme-svg-star-xs').rating({
 	  	min: 0, max: 5, step: 0.5, stars: 5,
 	    theme: 'krajee-svg',
 	    filledStar: '<span class="krajee-icon krajee-icon-star"></span>',
 	    emptyStar: '<span class="krajee-icon krajee-icon-star"></span>',
 	  	displayOnly:true,
 	    size:'xs'
+	  });
+	
+	$('.kv-ltr-theme-svg-star-sm').rating({
+	  	min: 0, max: 5, step: 0.5, stars: 5,
+	    theme: 'krajee-svg',
+	    filledStar: '<span class="krajee-icon krajee-icon-star"></span>',
+	    emptyStar: '<span class="krajee-icon krajee-icon-star"></span>',
+	  	displayOnly:true,
+	    size:'sm'
 	  });
 	
 //Script to fill the content of the modal of "See grades" of the reviews 

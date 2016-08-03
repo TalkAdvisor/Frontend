@@ -37,12 +37,14 @@
 .theme-krajee-svg.rating-sm .krajee-icon {
     width: 20px;
     height: 20px;
+    margin:-2px;
 }
 
 .theme-krajee-svg.rating-xs .krajee-icon {
     width: 17px;
     height: 17px;
     margin:-2px;
+    line-height:2px;
 }
 
 

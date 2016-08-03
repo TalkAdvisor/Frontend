@@ -51,7 +51,7 @@
 				<div class="review-picture">
 					<!-- photo of the speaker -->
 					<a  href="{{url('speaker').'/'.$speaker->id}}"><img class="img-responsive img-circle"
-						src="{{url('img').'/'.$speaker->speaker_photo}}" alt="speaker"></a> 
+						src="https://s3-ap-northeast-1.amazonaws.com/talk-advisor/speakers/{{$speaker->speaker_photo}}" alt="speaker"></a> 
 					<a class="speaker-name" href="{{url('speaker').'/'.$speaker->id}}">
 						{{$speaker->speaker_name }}
 					</a> 
@@ -85,13 +85,14 @@ var users = {!!json_encode($users)!!};
 
 $(window).scroll(function() {
     var height = $(window).scrollTop();
-    
-    if(height < 500) {
+    var background = $('#bg')
+
+    if( height < background.outerHeight() ) {
     	$("#navbar").addClass("navbar-home");
         $("#navbar").removeClass("navbar-default");
     }
     
-    if(height  > 500) {
+    if( height  > background.outerHeight() ) {
         $("#navbar").addClass("navbar-default");
         $("#navbar").removeClass("navbar-home");
     }

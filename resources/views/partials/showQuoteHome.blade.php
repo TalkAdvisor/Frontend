@@ -8,7 +8,8 @@
 				<!-- photo of the speaker -->
 				<a  href="{{url('speaker').'/'.$quote['speaker_id']}}">
 				<img class="img-responsive img-circle"
-					src="{{url('/').'/img/'.$quote['photo']}}" alt="speaker"></a>
+				src="https://s3-ap-northeast-1.amazonaws.com/talk-advisor/speakers/{{$quote['photo']}}"
+				alt="speaker"></a>
 			</div>
 		</div>
 		<div class="col-md-8 col-sm-10 col-xs-12">
@@ -33,7 +34,7 @@
 				<!-- photo of the speaker -->
 				<a  href="{{url('speaker').'/'.$quote['speaker_id']}}">
 				<img class="img-responsive img-circle"
-					src="{{url('/').'/img/'.$quote['photo']}}" alt="speaker"></a>
+					src="https://s3-ap-northeast-1.amazonaws.com/talk-advisor/speakers/{{$quote['photo']}}" alt="speaker"></a>
 			</div>
 		</div>
 	@endif

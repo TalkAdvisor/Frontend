@@ -2,7 +2,8 @@
 
 body {
 	background-color: #edefed;
-	font: 16px Chinese, Arial;
+	font-size:16px;
+	font-family: helvetica, arial, sans-serif, 华文细黑, \微软雅黑;
 	margin-bottom: 30px;
 }
 
@@ -55,6 +56,7 @@ body {
 .no-padding{
 	padding:0px; !important
 }
+
 .sticker {
 	background-color: #0aa516;
 	color: #fff;
@@ -147,8 +149,8 @@ body {
 }
 
 .sticker-speaker{
-	margin-left:70%;
-	margin-top:-50%;
+	margin-left:65%;
+	margin-top:-55%;
 	width:30%;
 }
 
@@ -159,20 +161,22 @@ body {
 	text-align: right;
 }
 
-.center-text {
+.stars-speaker {
 	height: 40px; /* hauteur du parent */
 	line-height: 40px; /* hauteur de ligne (identique) */
-	white-space: nowrap; /* interdiction de passer � la ligne */
+	white-space: nowrap; /* interdiction de passer à la ligne */
 	display: flex;
 }
 
-.center-text-small {
-	height: 20px; /* hauteur du parent */
-	line-height: 20px; /* hauteur de ligne (identique) */
-	white-space: nowrap; /* interdiction de passer � la ligne */
-	margin-top: 4px;
-	margin-left: 20%;
-	margin-right: -30%;
+.stars-review{
+	display: flex;
+	justify-content: center;
+	align-items: center;}
+
+.stars-small {
+	height: 30px; /* hauteur du parent */
+	line-height: 30px; /* hauteur de ligne (identique) */
+	white-space: nowrap; /* interdiction de passer à la ligne */
 }
 
 .speakerPhoto {
@@ -191,6 +195,7 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	padding:20px;
+	max-width:450px
 }
 
 .review-comment {
@@ -215,12 +220,6 @@ body {
 	text-align: right;
 	font-size: 80%;
 	font-style: italic;
-}
-
-.review-button {
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .user-name {
@@ -349,4 +348,9 @@ body {
 }
 .morelink {
     display: block;
+}
+
+#infscr-loading{
+	text-align:center;
+	margin:20px;
 }
