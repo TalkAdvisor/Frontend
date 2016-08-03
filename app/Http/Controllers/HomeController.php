@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\ratingoptions;
+use App\Speaker;
 
 
 class HomeController extends Controller
@@ -38,6 +39,7 @@ class HomeController extends Controller
 		$data['ratings']=$commentReviews['ratings'];
 		$data['users']=$commentReviews['users'];
 		$data['speakers']=$commentReviews['speakers'];
+        $data['allSpeakers']=Speaker::all();
 		
 		$data['options'] = ratingoptions::all();
 		$data['quotes'] = $reviewController->getRandomQuotes(3);

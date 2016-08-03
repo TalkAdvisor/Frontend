@@ -60,9 +60,9 @@
 		</div>
 		<div class="col-sm-3 stars-review">
 			<?php   $j=0; ?>
-			<button class="btn btn-default btn-grades hidden" data-toggle="modal"
+			<button class="btn btn-default btn-grades" data-toggle="modal"
 				data-target="#modalRating" data-rating=<?php echo $i ?>>See grades</button>
-				<div class="btn-grades-stars">
+				<div class="btn-grades-stars hidden">
 					@foreach ($options as $option)
 					<div class="row">
 						<div class="col-md-6 col-sm-6 stars-small">

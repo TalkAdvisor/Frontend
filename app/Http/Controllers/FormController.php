@@ -14,12 +14,18 @@ class FormController extends Controller
 		if ($type1=='search'){
 			$controller = new PagesController;
 			$name=$request->all()['speaker_name'];
-			$speaker=Speaker::where('speaker_name',$name)->first();
-			if ($speaker===null) { 		
-				\Session::flash('search_error',"Sorry the speaker $name has not been created yet");
+			if($name==""){
+				\Session::flash('search_error',"Please, try to type the name of a speaker");
 				return redirect('/' );
 			}
-			return redirect("speaker/$speaker->id");
+			else {
+				$speaker=Speaker::where('speaker_name',$name)->first();
+				if ($speaker===null) { 		
+					\Session::flash('search_error',"Sorry the speaker $name has not been created yet");
+					return redirect('/' );
+				}
+				return redirect("speaker/$speaker->id");
+			}
 		}
 		else if ($type1=='login'){
 			$controller= new AuthController();

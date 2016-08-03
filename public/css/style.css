@@ -45,12 +45,14 @@ body {
 	margin-top:80px;
 }
 
-.button-perso:focus {
-	border-color: #0aa516;
-}
-
 .flex{
 	display:flex
+}
+
+.search{
+	color:white;
+	border: 0; 
+	background: transparent
 }
 
 .no-padding{
@@ -233,8 +235,7 @@ body {
 		url('../img/img-quote.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
-	padding-top: 50px;
-	padding-bottom: 50px;
+	padding:50px 100px;
 }
 
 .quote {
