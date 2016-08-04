@@ -8,8 +8,8 @@
 
 Route::get ( '/', 'PagesController@home' );
 
-Route::get('/example', function (){
-	return view('example');
+Route::get('/facebook', function (){
+	return view('facebook');
 });
 
 Route::get ( '/{type}', 'PagesController@getPage' );

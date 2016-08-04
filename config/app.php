@@ -234,6 +234,7 @@ Collective\Html\HtmlServiceProvider::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'Form' => Illuminate\Html\FormFacade::class,
         'Html' => Illuminate\Html\HtmlFacade::class,
+
         
 'View' => Illuminate\Support\Facades\View::class,
 

@@ -52,4 +52,5 @@ class Kernel extends HttpKernel
         'ajax' => \App\Http\Middleware\Ajax::class,
         
     ];
+
 }

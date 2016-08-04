@@ -19,8 +19,6 @@
 						<a class="btn btn-social btn-block btn-facebook" id="btn-facebook">
 		    				<span class="fa fa-facebook"></span> Sign in with Facebook
 		 				</a>
-		 				
-		 				<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"></div>
 					</div>
 				{{ Form::open(array('url'=>'/register','class'=>'form-horizontal','style'=>'display:none','id'=>'formRegister')) }}
 						<div class="form-group">

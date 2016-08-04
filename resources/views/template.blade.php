@@ -47,6 +47,8 @@
 	{{ Html::script('js/plugins/jquery.infinitescroll.min.js')}}
 	{{ Html::script('js/register.blade.js') }}
 	{{ Html::script('js/login.blade.js') }}
+	{{ Html::script('js/facebook.blade.js') }} 
+
 	
 	<script>
 		$('div.alert').not('.alert-important').delay(2000).fadeOut(300);

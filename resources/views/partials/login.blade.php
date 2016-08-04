@@ -47,11 +47,11 @@
 								<button id="btn-login" type="submit" class="btn btn-block btn-social btn-perso" style="text-align:center">
 									<span class="fa fa-btn fa-sign-in"></span>Login
 								</button>
-								<a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot
-									Your Password?</a>
+								<a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
 								<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-									Login with Facebook
 								</fb:login-button>
+								<div id="status"></div>
+
 							</div>
 						</div></center>
 					</form>

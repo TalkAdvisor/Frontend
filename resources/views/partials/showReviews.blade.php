@@ -4,14 +4,14 @@
 	@foreach ($reviews as $review)
 
 	<div class="row review-container">
-		<div class="col-sm-3 hidden-xs review-picture">
+		<div class="col-md-3 col-sm-2 hidden-xs review-picture">
 			<!-- photo of the user -->
 			@if($page==='home')
 			<div class="row flex">
 				<div class="col-md-6 col-xs-6 no-padding">
 					<a href={{url('user').'/'.$users[$i]->id}}>
 					<img class="img-responsive img-circle"
-						src=https://lh6.googleusercontent.com/-St077kPaI3A/AAAAAAAAAAI/AAAAAAAAAE4/nshp34I8yjM/photo.jpg
+						src= "https://s3-ap-northeast-1.amazonaws.com/talk-advisor/users/{{$users[$i]->profile_picture}}"
 						alt="user">
 					</a>
 				</div>
@@ -27,7 +27,7 @@
 			@else @if($page==='speaker')
 			<a href={{url('user').'/'.$users[$i]->id}}>
 			<img class="img-responsive img-circle" style="width:80%"
-				src=https://lh6.googleusercontent.com/-St077kPaI3A/AAAAAAAAAAI/AAAAAAAAAE4/nshp34I8yjM/photo.jpg
+				src= "https://s3-ap-northeast-1.amazonaws.com/talk-advisor/users/{{$users[$i]->profile_picture}}"
 				alt="user">
 			</a>
 			@else

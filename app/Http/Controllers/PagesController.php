@@ -6,15 +6,14 @@ use Request;
 use App\Review;
 use App\Ratings;
 use App\Speaker;
-use App\Http\Requests;
-use App\Gestion\ReviewGestionInterface;
-use App\Gestion\ReviewGestion;
-use App\Http\Requests\ReviewRequest;
-use App\Repositories\ReviewRepository;
-use App\ratingoptions;
-use Illuminate\Support\Facades\Session;
 use App\User;
+use App\ratingoptions;
+use App\Http\Requests;
+use App\Http\Requests\ReviewRequest;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Response;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 
 
 class PagesController extends Controller
@@ -90,7 +89,7 @@ class PagesController extends Controller
 	public function getPage3($type1,$type2,$type3){
 		if($type1=='user'){
 			if($type3=='edit'){
-				$user=User::find($type2);
+				$user=User::findOrFail($type2);
 				$data=[];
 				$data['user']=$user;
 				$data['page']='edit';

@@ -49,7 +49,7 @@
 			<div class="col-md-4 col-sm-6 center">
 				<div class="col-md-8 col-md-offset-2">
 					<img class="img-circle img-responsive"
-						src="https://lh6.googleusercontent.com/-St077kPaI3A/AAAAAAAAAAI/AAAAAAAAAE4/nshp34I8yjM/photo.jpg">
+						src=" https://s3-ap-northeast-1.amazonaws.com/talk-advisor/users/{{$user->profile_picture}}">
 					<h1>{{$user->name}}</h1>
 					@if($connectedUser)
 					<a class="btn btn-perso" href="{{$user->id}}/edit">Edit my profile</a>

@@ -115,7 +115,7 @@ class UserController extends Controller
     public function getCommentsOf($id) {
     	$ratingController=new RatingsController();
     
-    	$reviews = User::find ($id)->reviews()->where ( 'comment', '!=', "" )->latest ( 'created_at' )->paginate(5);
+    	$reviews = User::findOrFail($id)->reviews()->where ( 'comment', '!=', "" )->latest ( 'created_at' )->paginate(5);
     	$ratings=[];
     	$speakers=[];
     	$i=0;

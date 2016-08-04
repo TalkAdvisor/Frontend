@@ -94,9 +94,5 @@ class SpeakerController extends Controller
     	$video = "https://www.youtube.com/embed/$key";    	 
     	$speaker->video=$video;
     	$speaker->save();
-    	
-    	\Session::flash('flash_message', 'Your video has been posted succesfully');    	
-    	$pagesController = new PagesController;
-    	return $pagesController->getPage2('speaker',$id);
     }
 }
