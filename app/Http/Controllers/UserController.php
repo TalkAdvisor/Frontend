@@ -57,7 +57,6 @@ class UserController extends Controller
         $user = User::find($id);
         $data=[];
         $data['user'] = $user;
-        $data['page'] = 'user';
         $data['options'] = ratingoptions::all();
         
         //we calculate the average grades given by the user and the number of reviews given
@@ -115,7 +114,7 @@ class UserController extends Controller
     public function getCommentsOf($id) {
     	$ratingController=new RatingsController();
     
-    	$reviews = User::findOrFail($id)->reviews()->where ( 'comment', '!=', "" )->latest ( 'created_at' )->paginate(5);
+    	$reviews = User::find($id)->reviews()->where ( 'comment', '!=', "" )->latest ( 'created_at' )->paginate(5);
     	$ratings=[];
     	$speakers=[];
     	$i=0;

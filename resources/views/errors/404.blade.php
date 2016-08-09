@@ -1,3 +1,5 @@
+<?php $page='404'; ?>
+
 @extends('template')
 
 @section('content')

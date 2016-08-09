@@ -43,21 +43,16 @@ class FormController extends Controller
 	public function post2(Request $request, $type1,$type2){
 		if ($type1=='speaker'){
 			if (array_key_exists('1', $request->all())){
-				$controller=new ReviewController();
-				$controller->store($request,$type2);
-
+				$reviewController=new ReviewController();
+				$reviewController->store($request,$type2);
 				\Session::flash ( 'flash_message', 'Your review has been posted succesfully' );
-				$pagesController = new PagesController ();
-				return $pagesController->getPage2 ( 'speaker', $type2 );
 			}
 			else {
 				$controller=new SpeakerController;
 				$controller->postVideo($request,$type2);
 				\Session::flash('flash_message', 'Your video has been posted succesfully');    	
-		    	$pagesController = new PagesController;
-		    	return $pagesController->getPage2('speaker',$type2);
-
 			}
+		return redirect("speaker/$type2");
 		}
 		if($type1=='user'){
 			if (array_key_exists('email', $request->all())){		//if there if an email it is an update of the user

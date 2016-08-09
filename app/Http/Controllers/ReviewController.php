@@ -70,7 +70,7 @@ class ReviewController extends Controller {
 	 */
 	public function update(Request $request, $id) {
 		$input=$request->all();
-		$review=Review::findOrFail($input['review_id']);
+		$review=Review::find($input['review_id']);
 		$review->quote=$input['quote'];
 		$review->comment=$input['comment'];
 		$review->save();
@@ -93,12 +93,12 @@ class ReviewController extends Controller {
 	public function getCommentsOn($id) {
 		$ratingController=new RatingsController();
 		
-		$reviews = Speaker::findOrFail($id)->reviews()->where ( 'comment', '!=', "" )->latest ( 'created_at' )->paginate(5);
+		$reviews = Speaker::find($id)->reviews()->where ( 'comment', '!=', "" )->latest ( 'created_at' )->paginate(5);
 		$ratings=[];
 		$users=[];
 		$i=0;
 		foreach ($reviews as $review){
-			$users["$i"] = User::findOrFail($review->user_id);
+			$users["$i"] = User::find($review->user_id);
 			$ratings["$i"] = $ratingController->getRatings($review->id);
 			$i++;
 		}
@@ -107,7 +107,7 @@ class ReviewController extends Controller {
 	
 	// extracts the quotes of the speaker from the reviews
 	public function getQuoteOf($id) {
-		$quotes = Speaker::findOrFail( $id )->reviews ()->where ( 'quote', '!=', "" )->latest ( 'created_at' )->lists ( 'quote' );
+		$quotes = Speaker::find( $id )->reviews ()->where ( 'quote', '!=', "" )->latest ( 'created_at' )->lists ( 'quote' );
 		return $quotes;
 	}
 	
@@ -124,6 +124,10 @@ class ReviewController extends Controller {
 			$users["$i"] = User::find($review->user_id);
 			$speakers["$i"] = Speaker::find($review->speaker_id);
 			$ratings["$i"] = $ratingController->getRatings($review->id);
+			//if the review doesn't have ratings it is a bug and we take it of
+			if (!$ratings["$i"]){				
+				$reviews->pull('$review->id');
+			}
 			$i++;
 		}
 		return ['reviews'=>$reviews,'ratings'=>$ratings,'users'=>$users,'speakers'=>$speakers];

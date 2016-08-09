@@ -1,6 +1,5 @@
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
     console.log(response);
     // The response object is returned with a status field that lets the
     // app know the current login status of the person.
@@ -12,8 +11,8 @@
       $.ajax({
         headers:{"Authorization":sessionStorage['token']}, 
         method: 'POST',
-        url: "http://52.69.148.135/ws/api/??",
-        data: {facebook_id : facebook_id },
+        url: "http://52.69.148.135/ws/api/user/socialLogin",
+        data: {email : email, fb_id : facebook_id },
         dataType:"json", 
       })
       .done(function(data) {
@@ -83,11 +82,12 @@
   //    your app or not.
   //
   // These three cases are handled in the callback function.
-
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-
+  if (false){
+       FB.getLoginStatus(function(response) {
+          console.log('la');
+          statusChangeCallback(response);
+       });
+    }
   };
 
   // Load the SDK asynchronously

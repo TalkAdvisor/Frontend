@@ -22,6 +22,7 @@ class PagesController extends Controller
 	public function home(){
 		$homeController = new HomeController();
 		$data = $homeController->index();
+		$data['connectedUser'] = Session::get('user');
 		return view('homepage',$data);
 	}
 	
@@ -60,24 +61,39 @@ class PagesController extends Controller
 		if ($type1=='speaker'){
 			$speakerController = new SpeakerController;
 			$data = $speakerController->show($type2);
-
+			$data['page']= 'speaker';
+			$data['connectedUser'] = Session::get('user');
 			return view('speaker',$data);
 		}
 		else if ($type1=='user') {
 			$userController = new UserController();
 			$data = $userController->show($type2);
+			$data['page']= 'user';
+			$data['connectedUser'] = Session::get('user');
 			return view('user',$data);
 			}
 		else if($type1=='login'){
 				Session::put('user',$type2);
-				Session::flash('flash_message','You are now logged in.');
-				return redirect('/');
+				return redirect('/')->with('flash_message','You are now logged in.');
 			}
 		else if($type1=='register'){
 				Session::put('user',$type2);
-				Session::flash('flash_message','You registered successfully.');
-				return redirect('/');
+				return redirect('/')->with('flash_message','You registered successfully.');
 			}
+		else if ($type1=='password'){
+			if($type2=="email"){
+				$data=[];
+				$data['connectedUser'] = Session::get('user');
+				$data['page'] = 'email';
+				return view('auth.email',$data);
+			}
+			else if ($type2=='reset'){
+				$data=[];
+				$data['connectedUser'] = Session::get('user');
+				$data['page'] = 'reset';
+				return view('auth.reset',$data);
+			}
+		}
 		else if($type1=='ratings' && Request::ajax()){
 				$ratingsController=new RatingsController();
 				return response()->json($ratingsController->show($type2));
@@ -91,6 +107,7 @@ class PagesController extends Controller
 			if($type3=='edit'){
 				$user=User::findOrFail($type2);
 				$data=[];
+				$data['connectedUser'] = Session['user'];
 				$data['user']=$user;
 				$data['page']='edit';
 				return view('edit',$data);
@@ -98,7 +115,6 @@ class PagesController extends Controller
 		}
 		if($type1=='speaker'){
 			if($type3=='reviews'){
-				
 				$reviews=new ReviewController();
 				return $reviews->getCommentsOn($type2);
 			}

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,8 +25,8 @@
 
 	@include('partials.navbar')
 	
-	@include('partials.login')	
-	@include('partials.register')
+	@include('auth.login')	
+	@include('auth.register')
 	
 	@yield('homePagePhoto')
 		
@@ -45,12 +45,16 @@
 	{{ Html::script('js/plugins/star-rating.min.js') }}
 	{{ Html::script('js/plugins/croppie.min.js')}}
 	{{ Html::script('js/plugins/jquery.infinitescroll.min.js')}}
-	{{ Html::script('js/register.blade.js') }}
-	{{ Html::script('js/login.blade.js') }}
-	{{ Html::script('js/facebook.blade.js') }} 
+	{{ Html::script('js/plugins/readmore.min.js') }} 
+
+	{{ Html::script('js/auth.blade.js') }}
+	{{ Html::script('js/facebook.blade.js') }}
+
 
 	
 	<script>
+	  var connectedUser={!!json_encode($connectedUser)!!};
+
 		$('div.alert').not('.alert-important').delay(2000).fadeOut(300);
 
 		if(typeof sessionStorage['token'] =='undefined'){

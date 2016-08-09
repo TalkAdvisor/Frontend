@@ -1,3 +1,4 @@
+
 @if ($page=='home')
 
 <nav class="navbar navbar-home navbar-fixed-top" id="navbar">
@@ -10,7 +11,12 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="{{url('/')}}">TalkAdvisor</a>
+			<a class="navbar-brand no-padding" href="{{url('/')}}">
+				<img class="img-brand" src="{{url('img/icon.png')}}" alt="talkadvisor">
+			</a>
+			<a class="navbar-brand" href="{{url('/')}}">
+				TalkAdvisor
+			</a>
 		</div>
 
 		<div class="collapse navbar-collapse navbar-right"
@@ -42,6 +48,9 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
+			<a class="navbar-brand no-padding" href="{{url('/')}}">
+				<img class="img-brand" src="{{url('img/icon.png')}}" alt="talkadvisor">
+			</a>
 			<a class="navbar-brand" href="{{url('/')}}">TalkAdvisor</a>
 		</div>
 

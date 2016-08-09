@@ -12,7 +12,7 @@
 					<a href={{url('user').'/'.$users[$i]->id}}>
 					<img class="img-responsive img-circle"
 						src= "https://s3-ap-northeast-1.amazonaws.com/talk-advisor/users/{{$users[$i]->profile_picture}}"
-						alt="user">
+						alt="{{$users[$i]->name}}">
 					</a>
 				</div>
 				<div class="col-md-6 col-xs-6 no-padding">
@@ -26,13 +26,13 @@
 			</div>
 			@else @if($page==='speaker')
 			<a href={{url('user').'/'.$users[$i]->id}}>
-			<img class="img-responsive img-circle" style="width:80%"
+			<img class="img-responsive img-circle review-photo"
 				src= "https://s3-ap-northeast-1.amazonaws.com/talk-advisor/users/{{$users[$i]->profile_picture}}"
 				alt="user">
 			</a>
 			@else
 			<a href={{url('speaker').'/'.$speakers["$i"]->id}}>
-			<img class="img-responsive img-circle" style="width:80%"
+			<img class="img-responsive img-circle review-photo"
 			src="https://s3-ap-northeast-1.amazonaws.com/talk-advisor/speakers/{{$speakers[$i]->speaker_photo}}"
 				alt="{{$speakers[$i]->speaker_name}}">
 			</a>
@@ -49,10 +49,11 @@
 			<h4 class="media-heading">Comment on {{$speakers["$i"]->speaker_name}}</h4>
 			@endif
 			@endif
-			
+			<span class="comment">
 				<input id=<?php echo "overallStar$i"?> 
-						class="kv-ltr-theme-svg-star-xs rating-loading" value="2"> 
-				<span class="more" id=<?php echo "$i"?> >{{$review->comment}}</span>
+				class="kv-ltr-theme-svg-star-xs rating-loading" value="2">
+				{{$review->comment}}
+			</span>
 			</span> 
 			<span class="review-date">
 				{{$review->created_at->diffForHumans()}} 
@@ -60,8 +61,7 @@
 		</div>
 		<div class="col-sm-3 stars-review">
 			<?php   $j=0; ?>
-			<button class="btn btn-default btn-grades" data-toggle="modal"
-				data-target="#modalRating" data-rating=<?php echo $i ?>>See grades</button>
+			<button class="btn btn-default btn-grades" data-rating=<?php echo $i ?>>See grades</button>
 				<div class="btn-grades-stars hidden">
 					@foreach ($options as $option)
 					<div class="row">
@@ -76,15 +76,11 @@
 					<?php  $j++; ?>	
 					@endforeach
 				</div>
-		</div>
-		<!--  <div class="col-sm-3 review-button">
-			<button class="btn btn-default btn-grades" id="btn-grades" data-toggle="modal"
-				data-target="#modalRating" data-rating=<?php echo $i ?>>See grades</button>
-			@if($page=='user' && $connectedUser)
+				@if($page=='user' && $connectedUser)
 			<button class="btn btn-perso btn-edit" data-toggle="modal"
 				data-target="#modalEdit" data-rating=<?php echo $i ?>>Edit review</button>
-			@endif
-		</div> -->
+		@endif
+		</div>
 	</div>					
 	<?php $i++; ?>
 	@endforeach
@@ -94,41 +90,6 @@
 @if ($page != 'home')
 	<div class="hidden"> {!! $reviews->render() !!} </div>
 @endif
-
-<!-- Modal for the ratings of each comment -->
-<div class="modal fade" id="modalRating" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel2">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel2"></h4>
-			</div>
-			<div class="modal-body">
-						<?php   $j=1; ?>
-						@foreach ($options as $option)
-						<div class="row">
-					<div class="col-lg-6 center-text-small">
-						<span class="small-text">{{$option->name}}</span>
-					</div>
-					<div class="col-lg-3 center-text-small">
-						<input id="stars{{$j}}"
-							class="kv-ltr-theme-svg-star-comment rating-loading " value="2">
-					</div>
-						<?php  $j++; ?>	
-						</div>
-				@endforeach
-			</div>
-			<div class="modal-footer">
-				<span class="review-date"></span>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- End of the modal -->
 
 <!-- Modal to edit each comment -->
 <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog"

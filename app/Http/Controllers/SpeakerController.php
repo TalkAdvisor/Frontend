@@ -32,12 +32,12 @@ class SpeakerController extends Controller
      */
     public function show($id)
     {
-    	$speakerController = new SpeakerController;
+    $speakerController = new SpeakerController;
 		$reviewController = new ReviewController;
 		$ratingController= new RatingsController;
 		
 		$data=[];
-		$data['speaker'] = $speakerController->getSpeaker($id);
+		$data['speaker'] = Speaker::findOrFail($id);
 		
 		$commentReviews = $reviewController->getCommentsOn($id);
 		$data['reviews'] = $commentReviews['reviews'];
@@ -46,7 +46,6 @@ class SpeakerController extends Controller
 		
 		$data['quotes'] = $reviewController->getQuoteOf($id);
 		$data['options'] = ratingoptions::all();
-		$data['page']= 'speaker';
 		return $data;
     }
     
@@ -68,12 +67,6 @@ class SpeakerController extends Controller
     	$speaker->average_5 = ($number*$speaker->average_5 + $input[5])/($number+1);
     	$speaker->number_reviews++;
     	$speaker->save();
-    }
-    
-    public function getSpeaker($id)
-    {
-        $speaker = Speaker::findOrFail($id);
-        return $speaker;
     }
     
     public function getBest($number){

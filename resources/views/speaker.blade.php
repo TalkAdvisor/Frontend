@@ -42,7 +42,9 @@ TalkAdvisor @stop @section('content')
 				<div class="company center"><h3>{{$speaker->speaker_company}} {{$speaker->speaker_title}}</h3></div>
 				@endif
 				<div class="presentation">
-					<span class="more" >{{$speaker->speaker_description}}</span>
+					<span class="presentation-text">
+						{{$speaker->speaker_description}}
+					</span>
 				</div>
 				@unless ($speaker->description_source===null)					
 				<p class="source">来源 : {{$speaker->description_source}}</p>
@@ -149,6 +151,10 @@ var quotes = {!! json_encode($quotes)!!};
 var ratings= {!! json_encode($ratings) !!};
 var speaker = {!!json_encode($speaker)!!};
 var users = {!!json_encode($users)!!};
+
+$(".presentation-text").readmore({
+	blockCSS: 'display: inline-block'
+});
 
 $("#btn-grades").click(function(){
 	console.log('Click');

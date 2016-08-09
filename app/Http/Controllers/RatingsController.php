@@ -69,7 +69,11 @@ class RatingsController extends Controller
     }
     
     public static function getRatings($id){
-		$ratings = Review::findOrFail($id)->ratings()->get();
+        try {
+		  $ratings = Review::find($id)->ratings()->get();
+        } catch(Exception $e){
+            return false;
+        }  
 		return $ratings;
     }
 }
