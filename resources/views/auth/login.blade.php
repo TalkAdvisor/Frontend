@@ -31,6 +31,7 @@
 								<span aria-hidden="true">&times;</span>
 							</button>
 								There is a mistake in your email address or your password.</br>
+								Did you <a href="{{ url('/password/email') }}">forgot Your Password?</a></br>
 								If you don't have an account yet, please <a data-dismiss="modal" data-toggle="modal" data-target="#register">register</a> or sign in with Facebook.
 						</div> 
 						
@@ -47,11 +48,10 @@
 								<button id="btn-login" type="submit" class="btn btn-block btn-social btn-perso" style="text-align:center">
 									<span class="fa fa-btn fa-sign-in"></span>Login
 								</button>
-								<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
-								<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-								</fb:login-button>
-								<div id="status"></div>
-
+								<label> - OR - </label>
+								<div class="btn btn-social btn-block btn-facebook" onclick=checkLoginState()  style="text-align:center">
+								<span class="fa fa-facebook"></span>
+								 Sign in with Facebook </div>			
 							</div>
 						</div></center>
 					</form>

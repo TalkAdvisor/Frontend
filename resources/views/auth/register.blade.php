@@ -13,12 +13,12 @@
 				<!-- Body of the modal -->
 				<div class="container-fluid">
 					<div class="col-md-6 col-md-offset-3">
-						<a type="submit" id="btn-email" class="btn btn-social btn-block btn-perso">
+						<div type="submit" id="btn-email" class="btn btn-social btn-block btn-perso">
 							<span class="fa fa-envelope"></span> Sign in with an email
-						</a>
-						<a class="btn btn-social btn-block btn-facebook" id="btn-facebook">
+						</div>
+						<div class="btn btn-social btn-block btn-facebook" id="btn-facebook" onclick=checkLoginState()>
 		    				<span class="fa fa-facebook"></span> Sign in with Facebook
-		 				</a>
+		 				</div>
 					</div>
 				{{ Form::open(array('url'=>'/register','class'=>'form-horizontal','style'=>'display:none','id'=>'formRegister')) }}
 						<div class="form-group">

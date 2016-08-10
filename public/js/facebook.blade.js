@@ -1,55 +1,22 @@
-  // This is called with the results from from FB.getLoginStatus().
-  function statusChangeCallback(response) {
-    console.log(response);
+function statusChangeCallback(response) {
     // The response object is returned with a status field that lets the
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
-      var facebook_id = getUserId();
-      //We get the user id and we connect him.
-      $.ajax({
-        headers:{"Authorization":sessionStorage['token']}, 
-        method: 'POST',
-        url: "http://52.69.148.135/ws/api/user/socialLogin",
-        data: {email : email, fb_id : facebook_id },
-        dataType:"json", 
-      })
-      .done(function(data) {
-        // If the user already exists, we just log him in.
-        console.log(data);
-        if(data.message=="success"){
-          window.location="login/"+data.user.id;
-        }
-        else {
-          //otherwise, we create an account for him. After asking him for a password ?
-          $.ajax({
-            headers:{"Authorization":sessionStorage['token']},
-            method: 'POST',
-            url: "http://52.69.148.135/ws/api/user/register",
-            data: { name : response.name , email : response.email , password : none},
-            dataType: "json",
-          })
-          .done(function(data) {
-            window.location="register/"+data.user.id;
-          })
-          .fail(function(data) {
-           //
-        });
-        }
-
-      })
-      .fail(function(data) {
-        //
-      });
+      // Logged into your app and Facebook.
+      connectUser();
     } else if (response.status === 'not_authorized') {
-      /* The person is logged into Facebook, but not your app. 
-      So he will go to register and click the FB login btn and authorise FB */
-      
-    } else {
-      /* The person is not logged into Facebook, 
-      so we're not sure if they are logged into this app or not.
-      So we do the same thing than for not authorized and wait for them to connect. */      
+        // The person is logged into Facebook, but not your app.
+      FB.login(function(response){
+        connectUser();
+      },{scope:'public_profile,email'});
+            } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      FB.login(function(response){
+        connectUser();
+      },{scope:'public_profile,email'});
     }
   }
 
@@ -71,23 +38,6 @@
     version    : 'v2.5' // use graph api version 2.5
   });
 
-  // Now that we've initialized the JavaScript SDK, we call 
-  // FB.getLoginStatus().  This function gets the state of the
-  // person visiting this page and can return one of three states to
-  // the callback you provide.  They can be:
-  //
-  // 1. Logged into your app ('connected')
-  // 2. Logged into Facebook, but not your app ('not_authorized')
-  // 3. Not logged into Facebook and can't tell if they are logged into
-  //    your app or not.
-  //
-  // These three cases are handled in the callback function.
-  if (false){
-       FB.getLoginStatus(function(response) {
-          console.log('la');
-          statusChangeCallback(response);
-       });
-    }
   };
 
   // Load the SDK asynchronously
@@ -101,8 +51,60 @@
 
   // Here we run a very simple test of the Graph API after login is
   // successful.  See statusChangeCallback() for when this call is made.
-  function getUserId() {
-    FB.api('/me', function(response) {
-      return response.id;
+  function connectUser() {
+    FB.api('/me', 'get', {fields: 'email,first_name,last_name'}, function(response){
+    var facebook_email = response.email;
+    var facebook_id = response.id;
+    var facebook_name = response.first_name+response.last_name;
+    $.ajax({
+      headers:{"Authorization":sessionStorage['token']}, 
+      method: 'POST',
+      url: "http://52.69.148.135/ws/api/user/socialLogin",
+      data: {email : response.email, fb_id : response.id },
+      dataType:"json", 
+    }) 
+    .done(function(data) {
+        // If the user already exists, we just log him in.
+        if(data.status=="1"){
+          window.location="login/"+data.user.id;
+        }
+        else if (data.status=="2"){
+          $.ajax({
+            headers:{"Authorization":sessionStorage['token']}, 
+            method: 'POST',
+            url: "http://52.69.148.135/ws/api/user/"+data.user.id,
+            data: {name:data.user.name, image:data.user.image, phone_number:data.user.phone_number,facebook_id:facebook_id},
+            dataType:"json", 
+          })
+          .done(function(data) {
+              //
+            })
+          .fail(function(data){
+              //
+            })
+        }
+        else if (data.status=="3"){
+          //otherwise, we create an account for him.
+          $.ajax({
+            headers:{"Authorization":sessionStorage['token']},
+            method: 'POST',
+            url: "http://52.69.148.135/ws/api/user/register",
+            data: { name : facebook_name , email : facebook_email , facebook_id : facebook_id, image : null,phone_number:null},
+            dataType: "json",
+          })
+          .done(function(data) {
+            window.location="register/"+data.user.id;
+          }) 
+          .fail(function(data) {
+               //
+             });
+        }
+        else {
+          //
+        } 
+      }) 
+    .fail(function(data) {
+        //
+      }) 
     });
-  }
+  };
