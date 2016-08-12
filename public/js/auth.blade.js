@@ -1,3 +1,17 @@
+/* Function called when we close a modal to open another.
+ * It allows the modal to scroll.
+ */
+
+    function switchModal(modalClose,modalOpen){
+        $('#'+modalClose).modal('hide');
+        $('#'+modalOpen).modal('show');        
+        setTimeout(function() {
+        // needs to be in a timeout because we wait for BG to leave
+        // keep class modal-open to body so users can scroll
+        $('body').addClass('modal-open');
+    }, 400); 
+    } 
+
 // for the login
 $(function(){
 
@@ -8,7 +22,6 @@ $(function(){
         var email = $("#email").val();
         var password = $("#password").val();
 
-       
         $.ajax({
         	headers:{"Authorization":sessionStorage['token']}, 
             method: $(this).attr('method'),
@@ -17,11 +30,10 @@ $(function(){
             dataType:"json", 
         })
         .done(function(data) {
-            console.log(data);
             if(data.message=="success"){
-                $('#login').modal('hide');
-                window.location="login/"+data.user.id;
-            }
+               $('#login').modal('hide');
+                window.location=url+"/login/"+data.user.id;
+                }
             else {
             	$(".form-group").addClass('has-error');
             	$(".alert").removeClass('hidden');
@@ -120,15 +132,11 @@ $(function(){
 
 //for the registration and registration page
         $( document ).ready(function(){
-            
             $("#btn-email").click(function(){
                 $("#btn-facebook").hide();
                 $("#btn-email").hide();
-            
                 $("#formRegister").show();
-                
             });
-
         });
 
         $(function(){
@@ -151,7 +159,7 @@ $(function(){
                 })
                 .done(function(data) {
                     $('#register').modal('hide');
-                    window.location="register/"+data.user.id;
+                    window.location=url+"/register/"+data.user.id;
                 })
                 .fail(function(data) {
                     $.each(data.responseJSON, function (key, value) {
