@@ -186,6 +186,10 @@ body {
 	white-space: nowrap; /* interdiction de passer à la ligne */
 }
 
+.option-name{
+	font-size:18px;
+}
+
 .speakerPhoto {
 	height: auto;
 }
@@ -232,6 +236,7 @@ body {
 	text-align: right;
 	font-size: 80%;
 	font-style: italic;
+	margin-bottom:10px;
 }
 
 .user-name {
@@ -370,6 +375,10 @@ body {
 	max-height:4em;
 }
 
+.comment span{
+	line-height: 1em;
+	white-space: pre-line;
+}
 .img-brand{
 	width:50px;
 }

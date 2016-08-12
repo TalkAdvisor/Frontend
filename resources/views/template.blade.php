@@ -1,9 +1,12 @@
+<?php session_start(); ?>
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="_token" content="{!! csrf_token() !!}"/>
+
 <title>@yield('title')</title> 
 
  {{ Html::style('css/plugins/bootstrap/bootstrap.min.css') }}
@@ -38,6 +41,10 @@
 	
 	
 </body>
+<script type="text/javascript">
+	var connectedUser={!!json_encode($connectedUser)!!};
+	var url = "{{url('/')}}";
+</script>
 
  	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	{{ Html::script('js/plugins/bootstrap.min.js') }} 
@@ -54,7 +61,8 @@
 	
 	<script>
 	  var connectedUser={!!json_encode($connectedUser)!!};
-
+	  var url = "{{url('/')}}";
+	  var page = {!!json_encode($page)!!};
 		$('div.alert').not('.alert-important').delay(2000).fadeOut(300);
 
 		if(typeof sessionStorage['token'] =='undefined'){
@@ -83,7 +91,6 @@
 		</script>
 	
 	@yield('script')
-	
 	
 </body>
 </html>

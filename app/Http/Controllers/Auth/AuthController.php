@@ -70,39 +70,4 @@ class AuthController extends Controller
             'password' => 'required|min:6',
         ]);
     }
-    
-    
-    /**
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    
-    public function register(Request $request){
-    	$validator = $this->validator($request->all());
-    	if ($validator->fails()) {
-    		$this->throwValidationException(
-    				$request, $validator
-    		);
-    	}
-    	return response()->json($request->all());
-    }
-    
-    /**
-     * Handle a login request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    
-    public function login(Request $request){
-    	$validator = $this->validateLogin($request->all());
-    	if ($validator->fails()) {
-    		$this->throwValidationException(
-    				$request, $validator
-    		);
-    	}
-    	return response()->json($request->all());
-    }
 }

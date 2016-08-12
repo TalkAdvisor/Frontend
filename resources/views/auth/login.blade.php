@@ -32,7 +32,7 @@
 							</button>
 								There is a mistake in your email address or your password.</br>
 								Did you <a href="{{ url('/password/email') }}">forgot Your Password?</a></br>
-								If you don't have an account yet, please <a data-dismiss="modal" data-toggle="modal" data-target="#register">register</a> or sign in with Facebook.
+								If you don't have an account yet, please <a onclick="switchModal('login','register')">register</a> or sign in with Facebook.
 						</div> 
 						
 						<center>
@@ -60,8 +60,7 @@
 			</div>
 			<div class="modal-footer footer-perso">
 				<div>You don't have an account ?</div>
-				<button type="button" class="btn btn-perso-reverse" data-dismiss="modal"
-					data-toggle="modal" data-target="#register">Register</button>
+				<button type="button" class="btn btn-perso-reverse" onclick="switchModal('login','register')">Register</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->

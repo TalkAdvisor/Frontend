@@ -12,7 +12,6 @@
 				{{$connectedUser ? 'You have not posted a review yet, time to get to work !' : 'This user has not posted a review yet' }}
 			</div>
 		@endif
-
 <div class="container-fluid">
 	<div class="margin">
 		<div class="row bloc user-bloc">
@@ -100,8 +99,8 @@
 	var reviews = {!!json_encode($reviews)!!};
 	var ratings= {!! json_encode($ratings) !!};
 	var stats = {!! json_encode($stats) !!};
-	console.log(stats);
-	
+	var user = {!! json_encode($user)!!};
+		
 //setting up the good value for the stars on the main page
 	for($i=0;$i<=5;$i++){
     	$("#option"+$i).val( stats['average_'+$i] );

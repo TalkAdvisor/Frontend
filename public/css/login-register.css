@@ -46,3 +46,12 @@
 #btn-email{
 	margin:20px 20px 0px 20px;	
 }
+
+.phone-input{
+    display:flex;
+    flex-wrap:nowrap;
+}
+
+.phone-input span{
+    margin-left:10px;
+    }
