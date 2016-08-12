@@ -10,6 +10,12 @@ $('.comment').readmore({
 
 $(document).ready(function(){
 
+var text =null;
+	for(i=0;i<reviews['data'].length;i++){
+	text = $('.text'+i).text().replace("\n","<br>");
+ 	$(".text"+i).html(text);	
+	}	
+
 $( ".stars-review" ).hover(function() {
 		$(this).find('.btn-grades-stars').removeClass('hidden');
 		$(this).find('.btn-grades').addClass('hidden');
@@ -47,40 +53,6 @@ $( ".stars-review" ).hover(function() {
 	    size:'sm'
 	  });
 	
-//Script to fill the content of the modal of "See grades" of the reviews 
-	$('#modalRating').on('show.bs.modal', function (event) {
-		  var button = $(event.relatedTarget) 					// Button that triggered the modal
-		  var id = button.data('rating') 						// Extract info from data-* attributes
-		  // Update the modal's content.
-		  var modal = $(this)
-		  modal.find('.modal-title').text('Grades given')
-		  modal.find('.review-date').text(reviews['data'][id].created_at)
-
-		  for(i=1;i<6;i++){
-		  	modal.find('#stars'+i).val(ratings[id][i-1].score)
-		  }
-		  
-		//initialise the stars of this modal
-		  $('.kv-ltr-theme-svg-star-comment').rating({
-		  	min: 0, max: 5, step: 0.5, stars: 5,
-		    theme: 'krajee-svg',
-		    filledStar: '<span class="krajee-icon krajee-icon-star"></span>',
-		    emptyStar: '<span class="krajee-icon krajee-icon-star"></span>',
-		  	displayOnly:true,
-		    size:'xs'
-		  });
-	})
-
-	// destroys all the ratings so that they are updated when the client clicks on another "See ratings" button
-	$('#modalRating').on('hide.bs.modal', function(){
-		setTimeout (function(){
-			for(i=1;i<6;i++){
-				$('#stars'+i).rating('destroy');
-			}
-		},200);
-	});
-		
-	
 //setting un the good value for each star in the comment
 	for(i=0;i<reviews['data'].length;i++){
 		$("#overallStar"+i).val(ratings[i][0].score)
@@ -110,6 +82,11 @@ $( ".stars-review" ).hover(function() {
 			  	modal.find('#comment').val(reviews['data'][id].comment);
 			  	modal.find('#quote').val(reviews['data'][id].quote);
 			  	modal.find("#review_id").val(reviews['data'][id].id);
+			  	if(page=='user'){
+			  		modal.find("#editForm").attr('action',url+'/user/'+user.id);			  		
+			  	} else {
+			  		modal.find("#editForm").attr('action',url+'/user/'+users[id].id);			  		
+			  	}
 			  }
 		  
 		//initialise the stars used to update
@@ -143,6 +120,7 @@ $( ".stars-review" ).hover(function() {
 		    $("#edit5").rating().on("rating.change", function(event, value, caption) {  
 		 	   $("#5").val(value); 
 		     });
+
 	})
 	
 	

@@ -52,8 +52,8 @@ class RatingsController extends Controller
     {
     	$ratings=Ratings::where('review_id',$input['review_id']);
     	for($i=1;$i<=5;$i++){
-    		$ratings ->where('ratingoption_id',$i)
-          			 ->update(['score' => $input[$i]]);
+    		$ratings->where('ratingoption_id',"=",$i)
+          			->update(['score' => $input[$i]]);
     	}
     }
 

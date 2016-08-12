@@ -23,11 +23,10 @@ TalkAdvisor @stop @section('content')
 				
 					<!-- Button to pop the modal. See at the end for the modal -->
 					@if(Session::has('user'))
-					<button type="button" class="btn btn-default btn-margin"
-						data-toggle="modal" data-target="#myModal">Rate this speaker</button>
+					<button type="button" id="btn-rating" class="btn btn-default btn-margin" data-toggle="modal" data-target="#myModal">Rate this speaker</button>
 					@else
 					<button type="button" class="btn btn-default btn-margin"
-						data-toggle="modal" data-target="#register">Rate this speaker</button>
+						data-toggle="modal" data-target="#login">Rate this speaker</button>
 					@endif
 				</div>
 			</div>
@@ -38,7 +37,7 @@ TalkAdvisor @stop @section('content')
 			</div>
 
 			<div class="col-md-4 col-md-offset-1">
-				@if (isset($speaker->speaker_title) && isset($speaker->speaker_company))
+				@if (isset($speaker->speaker_title) || isset($speaker->speaker_company))
 				<div class="company center"><h3>{{$speaker->speaker_company}} {{$speaker->speaker_title}}</h3></div>
 				@endif
 				<div class="presentation">
@@ -85,21 +84,22 @@ TalkAdvisor @stop @section('content')
 
 			<div class="col-md-6 col-sm-12 bloc ratings-bloc">
 			<?php   $i=1; ?>
+			<div class="col-xs-12 col-md-12">
+			<h4>Average ratings based on {{$speaker->number_reviews}} {{$speaker->number_reviews==1 ? 'review' : 'reviews'}}</h4>
+			</div>
 				@foreach ($options as $option)
-				<div class="col-md-2 col-sm-2 stars-speaker">
-					<h5>{{$option->name}}</h5>
+				<div class="col-md-3 col-sm-3 stars-speaker">
+					<p class="option-name">{{$option->name}}</p>
 				</div>
-				<div class="col-md-4 col-sm-4 stars-speaker">
+				<div class="col-md-3 col-sm-3 stars-speaker">
 					<span class="fa fa-info-circle fa-lg info" data-container="body" data-toggle="tooltip" data-placement="right" title="{{$option->description}}"></span>
 				</div>
-					<div class="col-md-6 col-sm-6 stars-speaker">
-					
-						<input id="option{{$i}}"
+				<div class="col-md-6 col-sm-6 stars-speaker">
+					<input id="option{{$i}}"
 							class="{{$speaker->number_reviews===null ? 'kv-ltr-theme-svg-star-disabled' : 'kv-ltr-theme-svg-star-display'}} rating-loading " value="2">
-					</div>
+				</div>
 				<?php  $i++; ?>			
 				@endforeach
-				<div>on {{$speaker->number_reviews}} ratings</div>
 			</div>
 		</div>
 		
@@ -110,24 +110,6 @@ TalkAdvisor @stop @section('content')
 		@endunless
 		
 
-	</div>
-</div>
-
-<!-- Modal for the presentation -->
-<div class="modal fade" id="modalPresentation" tabindex="-1"
-	role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<h4 class="modal-title" id="myModalLabel">{{$speaker->speaker_name}}</h4>
-			</div>
-			<div class="modal-body">{{$speaker->speaker_description}}</div>
-			<div class="modal-footer"></div>
-		</div>
 	</div>
 </div>
 
@@ -166,6 +148,18 @@ $("#show-grades").click(function(){
 	$("#stars").removeClass('hidden');
 	$("#text-fields").addClass('hidden');
 });
+
+//script to disable the rating button if the user already rated this speakers
+var alreadyReviewed = false;
+users.forEach(function(item, index){
+	console.log(item + " " + index);
+	if (item.id == connectedUser){
+		alreadyReviewed = true;
+	}
+});
+if (alreadyReviewed){
+	$("#btn-rating").attr('disabled','disabled');
+}
 
 </script>
 

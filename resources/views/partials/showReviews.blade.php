@@ -52,12 +52,23 @@
 			<span class="comment">
 				<input id=<?php echo "overallStar$i"?> 
 				class="kv-ltr-theme-svg-star-xs rating-loading" value="2">
-				{{$review->comment}}
+				<span id=<?php echo "text$i"?>>{{$review->comment}}</span>
 			</span>
 			</span> 
 			<span class="review-date">
 				{{$review->created_at->diffForHumans()}} 
 			</span>
+			<!-- Display the edit button if the review if from the connected user -->
+			<div class="col-md-3 col-md-offset-4">
+				@if ($page=='user')
+					@if ($user->id == $connectedUser)
+						<button class="btn btn-perso btn-edit" data-toggle="modal" data-target="#modalEdit" data-rating=<?php echo $i ?>>Edit review</button>
+					@endif
+				@else @if ($users[$i]->id == $connectedUser)
+					<button class="btn btn-perso btn-edit" data-toggle="modal" data-target="#modalEdit" data-rating=<?php echo $i ?>>Edit review</button>
+					@endif
+				@endif 
+				</div>
 		</div>
 		<div class="col-sm-3 stars-review">
 			<?php   $j=0; ?>
@@ -76,10 +87,6 @@
 					<?php  $j++; ?>	
 					@endforeach
 				</div>
-				@if($page=='user' && $connectedUser)
-			<button class="btn btn-perso btn-edit" data-toggle="modal"
-				data-target="#modalEdit" data-rating=<?php echo $i ?>>Edit review</button>
-		@endif
 		</div>
 	</div>					
 	<?php $i++; ?>
@@ -106,8 +113,8 @@
 			<div class="modal-body">
 				<div id="stars-edit">
 					<div class="row">
-					{!! Form::open(); !!}
-						@foreach ($options as $option)
+					{!! Form::open(array('id'=>'editForm')) !!}
+						@foreach ($options as $option)nt
 							<div class="col-lg-6 star-container {{$option->id===5 ? 'col-lg-offset-3' : ''}}">
 								<div class="in-line">
 									<p>{{$option->name}}</p>

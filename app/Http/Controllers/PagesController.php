@@ -32,6 +32,9 @@ class PagesController extends Controller
 	 		Session::flash('flash_message','You have been disconnected');
 	 		return redirect('/');
 	 	}
+	 	if($type1=="login"){
+	 		return "Coucou";
+	 	}
 		/*if ($type == 'review'){
 			$controller = new ReviewController;
 			$reviews = $controller->index();
