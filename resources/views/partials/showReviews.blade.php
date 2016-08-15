@@ -70,9 +70,9 @@
 				@endif 
 				</div>
 		</div>
-		<div class="col-sm-3 stars-review">
+		<div class="col-sm-3 stars-review" data-rating=<?php echo $i ?>>
 			<?php   $j=0; ?>
-			<button class="btn btn-default btn-grades" data-rating=<?php echo $i ?>>See grades</button>
+			<button class="btn btn-default btn-grades">See grades</button>
 				<div class="btn-grades-stars hidden">
 					@foreach ($options as $option)
 					<div class="row">
@@ -80,8 +80,7 @@
 							<h5 data-container="body" data-toggle="tooltip" data-placement="left" title="{{$option->description}}">{{$option->name}}</h5>
 						</div>
 						<div class="col-md-6 col-sm-6 stars-small">
-							<input id="grade{{$i}}{{$j}}"
-							class="kv-ltr-theme-svg-star-sm rating-loading " value="2">
+							<input class="kv-ltr-theme-svg-star-sm rating-loading grade{{$j}}" value="2">
 						</div>
 					</div>
 					<?php  $j++; ?>	

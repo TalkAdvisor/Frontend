@@ -14,11 +14,11 @@
 			{{Form::open(array('class'=>'form-horizontal','id'=>'formEdit'))}}
 				<div class="form-group">
 				{{Form::label('name','Username')}}
-				{{Form::text('name',$user->name, array('class' => 'form-control'))}}
+				{{Form::text('name',$user->name, array('id'=>'name', 'class' => 'form-control'))}}
 				</div>
 				<div class="form-group">
 				{{Form::label('email','Email')}}
-				{{Form::email('email',$user->email, array('class' => 'form-control'))}}
+				{{Form::email('email',$user->email, array('id'=>'email','class' => 'form-control'))}}
 				</div>
 				<div class="form-group">
 				{{Form::label('old_password','Old Password')}}
@@ -49,43 +49,24 @@
 <script>
 var user={!!json_encode($user)!!};
 
-
-var basic = $('.picture').croppie({
-    viewport: {
-        width: 200,
-        height: 200
-    }
-});
-basic.croppie('bind', {
-    url: user.profile_picture,
-    points: [77,469,280,739]
-});
-//on button click
-basic.croppie('result', 'html').then(function(html) {
-    // html is div (overflow hidden)
-    // with img positioned inside.
-});
-
 $(function(){
-
-
     $(document).on('submit', '#formEdit', function(e) {  
         e.preventDefault();
         $('input+small').text('');
         $('input').parent().removeClass('has-error');
         var name = $("#name").val();
-      /*  var email = $("#email").val();
-        var password = $("#password").val(); */
+        var email = $("#email").val();
+       /* var password = $("#password").val(); */
          
         $.ajax({
         	headers:{"Authorization":sessionStorage['token']},
-            method: $(this).attr('method'),
-            url: "http://52.69.148.135/ws/api/user/"+user.id,
-            data: { name : name },
+            method: 'POST',
+            url: "http://52.69.148.135/ws/api/user/"+connectedUser,
+            data: { name : name, email : email },
             dataType: "json",
         })
         .done(function(data) {
-            window.location="user/"+data.user.id;
+            window.location=url+"/user/"+data.user.id;
         })
         .fail(function(data) {
            

@@ -130,7 +130,6 @@
 						<small class="help-block"></small> 
 					</div>
 				</div>
-
 				<div class="form-group" >
 					<label for="emailFB" class="col-md-4 control-label">E-Mail Address</label>
 
@@ -160,7 +159,9 @@
 				<div class="form-group">
 					<label for="profile-picture" class="col-md-4" control-label">Profile picture</label>
 					<div class="col-md-6">
-						<img  id="facebook_image">
+						<div>
+						  <img id="picture" class="cropper">
+						</div>
 						<p>This is currently your profile picture (from Facebook). You can upload another one if you would like.</p>
 						<div class="input-group">
 							<label class="input-group-btn">
@@ -191,7 +192,8 @@
 						<span class="fa fa-question-circle fa-2x" data-container="body" data-toggle="tooltip" data-placement="right" title="We need your phone number to authenticate your account. It will not be used for commercial purposes."></span> 
 					</div>
 				</div>
-				
+				<input id="facebook_id" class="hidden">
+
 			<div class="form-group center">
 				<div class="col-md-6 col-md-offset-4 ">
 					<button type="submit" class="btn btn-block btn-social btn-perso" style="text-align:center">
@@ -200,7 +202,6 @@
 					</button>
 				</div>
 			</div>
-			<input class="hidden" id="facebook_id">
 			{{Form::close()}}
 			<p>This info came from Facebook</p>
 			</div>
@@ -212,4 +213,6 @@
 	</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
 

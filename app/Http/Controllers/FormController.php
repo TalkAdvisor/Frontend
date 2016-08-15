@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use App\Http\Requests;
 use App\Speaker;
+use App\User;
 use Session;
 use App\Http\Controllers\Auth\AuthController;
 
@@ -20,11 +21,6 @@ class FormController extends Controller
 				Session::flash('search_error',"Please, type the name of a speaker");
 				return redirect('/' );
 			}
-			else if($type1=='login'){
-				Session::put('user',1);
-				Session::flash('flash_message','You are logged in');
-				return'success';
-			}
 			else {
 				$speaker=Speaker::where('speaker_name',$name)->first();
 				if ($speaker===null) { 		
@@ -34,11 +30,6 @@ class FormController extends Controller
 				return redirect("speaker/$speaker->id");
 			}
 		}
-		/*else if($type1=="login"){
-			Session::put('flash_message','You are now logged in');
-			Session::put('user',1);
-			return "I am in";
-		}*/
 		else {
 			redirect("/");
 		}
@@ -71,6 +62,11 @@ class FormController extends Controller
 				$reviewController->update($request,$type2);
 				return redirect(URL::previous());
 			}
+		}
+		if ($type1=='login'){
+			Session::put('user',$type2);
+			Session::put('flash_message','You are now loggued in');
+			return json_encode($type2);
 		}
 	}
 }

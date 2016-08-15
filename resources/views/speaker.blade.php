@@ -139,7 +139,6 @@ $(".presentation-text").readmore({
 });
 
 $("#btn-grades").click(function(){
-	console.log('Click');
 	$("#stars").addClass('hidden');
 	$("#text-fields").removeClass('hidden');
 });
@@ -152,7 +151,6 @@ $("#show-grades").click(function(){
 //script to disable the rating button if the user already rated this speakers
 var alreadyReviewed = false;
 users.forEach(function(item, index){
-	console.log(item + " " + index);
 	if (item.id == connectedUser){
 		alreadyReviewed = true;
 	}
