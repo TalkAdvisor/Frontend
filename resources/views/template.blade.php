@@ -17,7 +17,7 @@
  {{ Html::style('css/login-register.css')}}
  {{ Html::style('css/plugins/bootstrap-social.css')}}
  {{ Html::style('css/plugins/font-awesome.min.css')}}
- {{ Html::style('css/plugins/croppie.css')}}
+ {{ Html::style('https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.3/cropper.min.css')}}
  {{ Html::style('css/button.css')}}
   
  @yield('header')
@@ -50,12 +50,13 @@
 	{{ Html::script('js/plugins/bootstrap.min.js') }} 
 	{{ Html::script('js/plugins/typeahead.bundle.min.js') }}
 	{{ Html::script('js/plugins/star-rating.min.js') }}
-	{{ Html::script('js/plugins/croppie.min.js')}}
+	{{ Html::script('https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.3/cropper.min.js')}}
 	{{ Html::script('js/plugins/jquery.infinitescroll.min.js')}}
 	{{ Html::script('js/plugins/readmore.min.js') }} 
-
 	{{ Html::script('js/auth.blade.js') }}
 	{{ Html::script('js/facebook.blade.js') }}
+	{{ Html::script('js/infinite-reviews.blade.js') }} 
+
 
 
 	

@@ -75,14 +75,6 @@ class PagesController extends Controller
 			$data['connectedUser'] = Session::get('user');
 			return view('user',$data);
 			}
-		else if($type1=='login'){
-				Session::put('user',$type2);
-				return redirect('/')->with('flash_message','You are now logged in.');
-			}
-		else if($type1=='register'){
-				Session::put('user',$type2);
-				return redirect('/')->with('flash_message','You registered successfully.');
-			}
 		else if ($type1=='password'){
 			if($type2=="email"){
 				$data=[];
@@ -110,7 +102,7 @@ class PagesController extends Controller
 			if($type3=='edit'){
 				$user=User::findOrFail($type2);
 				$data=[];
-				$data['connectedUser'] = Session['user'];
+				$data['connectedUser'] = Session::get('user');
 				$data['user']=$user;
 				$data['page']='edit';
 				return view('edit',$data);
