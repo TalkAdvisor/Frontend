@@ -104,9 +104,33 @@ TalkAdvisor @stop @section('content')
 		</div>
 		
 		@unless($reviews->isEmpty())
-		<div class="row bloc">
-			@include('partials.showReviews')
-		</div>
+			<div style="margin-top:20px;">
+			  <!-- Nav tabs -->
+			  <center>
+			  	<b>
+				  <ul class="nav nav-tabs" role="tablist">
+				    <li role="presentation" class="active" style="width:50%;"><a style="border-radius:0px;margin-left:-15px;" href="#home" aria-controls="home" role="tab" data-toggle="tab">Reviews</a></li>
+				    <li role="presentation" style="width:50%;
+				    "><a style="border-radius:0px;margin-right:-15px;" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Quotes</a></li>
+				  </ul>
+				</b>
+			  </center>
+			  <!-- Tab panes -->
+			  <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="home">
+				    <div class="row bloc review-tab">
+				    	@include('partials.showReviews')
+				    </div>
+			    </div>
+			    <div role="tabpanel" class="tab-pane" id="profile">
+				    <div class="row bloc review-tab">
+						@include('partials.showQuotes')
+					</div>
+			    </div>
+			  </div>
+
+			</div>
+		
 		@endunless
 		
 

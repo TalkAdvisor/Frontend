@@ -114,7 +114,10 @@ body {
 	border: 1px solid #E0E2E0;
 	border-bottom: 1px solid #C7C9C7;
 }
-
+.review-tab{
+	margin-top: 0px;
+	border-top: 0px solid #E0E2E0;
+}
 .smallBloc {
 	margin-top: 20px;
 	background-color: #fff;
@@ -222,7 +225,7 @@ body {
 }
 
 .review-photo{
-	width:50%;
+	width:150px;
 }
 
 
