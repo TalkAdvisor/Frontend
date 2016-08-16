@@ -47,6 +47,7 @@
 	<?php $i++; ?>
 		@else
 			<p>This speaker has no quote yet. Be the first to grade him or her!</p>
+			<?php break; ?>
 		@endif
 	@endforeach
 </div>
