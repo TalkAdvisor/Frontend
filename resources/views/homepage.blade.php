@@ -16,9 +16,10 @@
 			<div id="search-bg"></div>
 			<div id="search">
 			{{Form::open(array('url'=>'search','class'=>'form-home','role'=>'search'))}}
-				{{csrf_field()}}
+				{{!!csrf_field()!!}}
 					<div class="form-group" id="the-basics">
 					{{Form::text('speaker_name',null,array('class'=>'form-control-home typeahead','placeholder'=>'Find a speaker'))}}
+					</div>
 					<button type="submit" class="search">
 						<i class="fa fa-search fa-2x btn-search" aria-hidden="true"></i>
 					</button>
