@@ -71,7 +71,7 @@ TalkAdvisor @stop @section('content')
 					<div class="col-lg-10">               
 	    				{{ Form::label('video','Upload a video of this speaker !',array('class'=>'video-label'))}} 
 	    			</div>
-	    			{{!!csrf_field()!!}}
+	    			{{csrf_field()}}
 					<div class="col-lg-10">               
 	    				{{ Form::text('video',null,array('class'=>'form-control','placeholder'=>'Example : https://www.youtube.com/watch?v=HUmX6CiMoFk'))}}  
 	    			</div>

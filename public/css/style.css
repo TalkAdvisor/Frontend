@@ -216,6 +216,10 @@ body {
 	margin-bottom: 10px;
 	text-align: justify;
 }
+.review-quote {
+	margin-bottom: 10px;
+	text-align: justify;
+}
 
 .review-picture {
 	display: flex;
@@ -379,6 +383,14 @@ body {
 }
 
 .comment span{
+	line-height: 1em;
+	white-space: pre-line;
+}
+.quotes{
+	max-height:4em;
+}
+
+.quotes span{
 	line-height: 1em;
 	white-space: pre-line;
 }

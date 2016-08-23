@@ -16,12 +16,12 @@
 			@endif
 		</div>
 		<div class="col-sm-6 review-text">
-			<span class="review-comment">
+			<span class="review-quote">
 			
 			@if ($page==='speaker')
 			<h4 class="media-heading">Quote of {{$users["$i"]->name}}</h4>
 			@endif
-			<span class="comment">
+			<span class="quotes">
 				<span id=<?php echo "text$i"?>>"{{$review->quote}}"</span>
 			</span>
 			</span> 
