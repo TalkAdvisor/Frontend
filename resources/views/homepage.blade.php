@@ -16,7 +16,7 @@
 			<div id="search-bg"></div>
 			<div id="search">
 			{{Form::open(array('url'=>'search','class'=>'form-home','role'=>'search'))}}
-				{{ Form::token() }}
+				{{csrf_field()}}
 					<div class="form-group" id="the-basics">
 					{{Form::text('speaker_name',null,array('class'=>'form-control-home typeahead','placeholder'=>'Find a speaker'))}}
 					</div>
