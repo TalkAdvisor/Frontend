@@ -4,7 +4,7 @@
 	                // selector for the paged navigation (it will be hidden)
 	 nextSelector : "ul.pagination li a",    
 	                // selector for the NEXT link (to page 2)
-	 itemSelector : "#reviews div.review-container"  ,        
+	 itemSelector : "#reviews div.review-container review-comment"  ,        
 	                // selector for all items you'll retrieve
  	loading: { finishedMsg: "No more reviews to load.", 
  	 		   msgText: "<em>Loading older comments</em>", 
