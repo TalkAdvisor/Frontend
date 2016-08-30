@@ -65,7 +65,6 @@
 	  var url = "{{url('/')}}";
 	  var page = {!!json_encode($page)!!};
 		$('div.alert').not('.alert-important').delay(2000).fadeOut(300);
-
 			if(typeof sessionStorage['token'] =='undefined'){
 				 var settings = {
 			                "url": "http://52.69.148.135/ws/auth/login",
@@ -78,39 +77,18 @@
 			               success: function(data){
 			                },
 			                error: function(){
-			                myApp.alert('La requete n\'a pas abouti');
+			                myApp.alert('wrong');
 			                }
 			                };
-
 			              // RECUPERATION DU TOKEN
-
 			              $.ajax(settings).done(function(data){
 			                  sessionStorage['token']="Bearer"+data.token;
-			              });
-			}
-			if (typeof sessionStorage['message']=='Wrong number of segments') {
-				var settings = {
-			                "url": "http://52.69.148.135/ws/auth/login",
-			                "type": "Post",
-			                data: {
-			                              email: "test@gmail.com",
-			                              password: "test123"
-			                          },
-			                 dataType :"json",
-			               success: function(data){
-			                },
-			                error: function(){
-			                myApp.alert('La requete n\'a pas abouti');
-			                }
-			                };
 
-			              // RECUPERATION DU TOKEN
-
-			              $.ajax(settings).done(function(data){
-			                  sessionStorage['token']="Bearer"+data.token;
 			              });
+
 			}
-			if (typeof sessionStorage['status_code']=='401') {
+			
+			else {
 				var settings = {
 			                "url": "http://52.69.148.135/ws/auth/login",
 			                "type": "Post",
