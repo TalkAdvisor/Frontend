@@ -27,6 +27,8 @@
 			
 			@if ($page==='speaker')
 			<h4 class="media-heading">Quote of {{$users["$i"]->name}}</h4>
+			@else($page==='user')
+			<h4 class="media-heading">Quote of {{$speakers["$i"]->speaker_name}}</h4>
 			@endif
 			<span class="quotes">
 				<span id=<?php echo "text$i"?>>"{{$review->quote}}"</span>
@@ -108,13 +110,6 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<span class="review-date"></span>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- End of the modal -->
-odal-footer">
 				<span class="review-date"></span>
 			</div>
 		</div>
