@@ -2,7 +2,7 @@
 <div class="col-md-12" id="reviews">
 	<?php $i=0; ?>
 	@foreach ($reviews as $review)
-		@if(($review->quote)!='' and ($review->quote)!=null)
+		@if(($review->quote)!='' && ($review->quote)!=null)
 
 	<div class="row review-container">
 		<div class="col-md-3 col-sm-2 hidden-xs review-picture">
@@ -37,24 +37,21 @@
 			</span>
 			<!-- Display the edit button if the review if from the connected user -->
 			<div class="col-md-3 col-md-offset-4">
-				@if ($page=='user')
-					@if ($user->id == $connectedUser)
-						<button class="btn btn-perso btn-edit" data-toggle="modal" data-target="#modalEdit" data-rating=<?php echo $i ?>>Edit review</button>
-					@endif
-				@else @if ($users[$i]->id == $connectedUser)
+			@if ($page=='user')
+				@if ($user->id == $connectedUser)
 					<button class="btn btn-perso btn-edit" data-toggle="modal" data-target="#modalEdit" data-rating=<?php echo $i ?>>Edit review</button>
-					@endif
-				@endif 
-				</div>
+				@endif
+			@else @if ($users[$i]->id == $connectedUser)
+				<button class="btn btn-perso btn-edit" data-toggle="modal" data-target="#modalEdit" data-rating=<?php echo $i ?>>Edit review</button>
+				@endif
+			@endif 
+			</div>
 		</div>
 		<div class="col-sm-3 stars-review" data-rating=<?php echo $i ?>>
 			<?php   $j=0; ?>
 		</div>
 	</div>					
 	<?php $i++; ?>
-		@else
-			<p>This speaker has no quote yet. Be the first to grade him or her!</p>
-			<?php break; ?>
 		@endif
 	@endforeach
 </div>
@@ -111,6 +108,13 @@
 				</div>
 			</div>
 			<div class="modal-footer">
+				<span class="review-date"></span>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End of the modal -->
+odal-footer">
 				<span class="review-date"></span>
 			</div>
 		</div>
