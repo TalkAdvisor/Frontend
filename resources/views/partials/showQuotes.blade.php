@@ -4,7 +4,7 @@
 	@foreach ($reviews as $review)
 		@if(($review->quote)!='' && ($review->quote)!=null)
 
-	<div class="row review-container">
+	<div class="row quotes-container">
 		<div class="col-md-3 col-sm-2 hidden-xs review-picture">
 			<!-- photo of the user -->
 			@if($page==='speaker')

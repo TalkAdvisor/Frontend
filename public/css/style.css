@@ -202,7 +202,11 @@ body {
 	flex-direction: row;
 	justify-content: center;
 }
-
+.quotes-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
 .review-text {
 	border-bottom: 1px solid #d6dbd6;
 	display: flex;
