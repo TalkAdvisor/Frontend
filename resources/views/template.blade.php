@@ -85,7 +85,6 @@
 			                  sessionStorage['token']="Bearer"+data.token;
 
 			              });
-
 			}
 			
 			else {

@@ -13,6 +13,13 @@
 				src= "https://s3-ap-northeast-1.amazonaws.com/talk-advisor/users/{{$users[$i]->profile_picture}}"
 				alt="user">
 			</a>
+			@else
+			<a href={{url('speaker').'/'.$speakers["$i"]->id}}>
+			<img class="img-responsive img-circle review-photo"
+			src="https://s3-ap-northeast-1.amazonaws.com/talk-advisor/speakers/{{$speakers[$i]->speaker_photo}}"
+				alt="{{$speakers[$i]->speaker_name}}">
+			</a>
+			
 			@endif
 		</div>
 		<div class="col-sm-6 review-text">
